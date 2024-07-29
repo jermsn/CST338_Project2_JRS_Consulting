@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CST338_TrackTournament</string>
+    <string name="coach_team_review">Coach\nTeam Review</string>
+    <string name="new_race_distance">Add a new race distance</string>
+    <string name="list_runners_by_pace">List runners by pace</string>
+    <string name="list_runners_by_training">List runners by training</string>
+    <string name="quit">Quit</string>
 </resources>
