@@ -30,6 +30,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+
     // This was manually added to enable viewBindings
     buildFeatures {
         viewBinding = true
@@ -46,6 +47,7 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+
     // These were added based on the suggestions at this URL
     // https://developer.android.com/jetpack/androidx/releases/room#kts
     val room_version = "2.6.1"
@@ -54,4 +56,3 @@ dependencies {
     annotationProcessor(libs.room.compiler)
 
 }
-

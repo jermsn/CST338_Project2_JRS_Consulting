@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">CST338_TrackTournament</string>
+
+    <string name="welcome_to_track_tournament">Welcome to Track Tournament!</string>
+    <string name="sign_in_to_log_your_training">Sign in to log your training</string>
+    <string name="user_name">User Name:</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="password">Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="log_in">Log In</string>
+    <string name="new_user_click_here">New User Click here!</string>
     <string name="coach_team_review">Coach\nTeam Review</string>
     <string name="new_race_distance">Add a new race distance</string>
     <string name="list_runners_by_pace">List runners by pace</string>
