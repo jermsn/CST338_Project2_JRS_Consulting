@@ -99,10 +99,11 @@
             android:layout_width="390dp"
             android:layout_height="41dp"
             android:id="@+id/button2"
-            android:background=""
+            android:background="#FFFFFF"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="52dp" android:layout_marginBottom="16dp"/>
+            android:layout_marginStart="52dp"
+            android:layout_marginBottom="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

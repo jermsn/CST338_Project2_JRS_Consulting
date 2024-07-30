@@ -54,4 +54,6 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
         }
     };
 
+    public abstract TrackTournamentDAO trackTournamentDAO();
+
 }
