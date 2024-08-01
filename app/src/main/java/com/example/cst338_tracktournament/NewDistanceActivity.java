@@ -3,20 +3,39 @@ package com.example.cst338_tracktournament;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.cst338_tracktournament.databinding.ActivityNewDistanceBinding;
 
 public class NewDistanceActivity extends AppCompatActivity {
+
+    //Bind this code to our activity_coach.xml interface
+    private ActivityNewDistanceBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_distance);
+        binding = ActivityNewDistanceBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
+        // This is our main button
+        binding.buttonCreateNewDistance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 2024-07-31 Jeremy - Right now this is hardcoded to return to the Coach activities
+                //TODO: This needs to insert the entered information into the database.
+                Intent intent = Coach_Activity.coachActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
 
     /**
@@ -26,6 +45,6 @@ public class NewDistanceActivity extends AppCompatActivity {
      * @return the intent of the main application
      */
     static Intent newDistanceIntentFactory (Context context) {
-        return new Intent(context, MainActivity.class);
+        return new Intent(context, NewDistanceActivity.class);
     }
 }

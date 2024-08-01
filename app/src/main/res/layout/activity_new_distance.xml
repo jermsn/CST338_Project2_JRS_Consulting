@@ -120,7 +120,7 @@
         android:layout_height="75dp"
         android:layout_marginTop="60dp"
         android:backgroundTint="@color/green"
-        android:text="@string/new_race_distance"
+        android:text="@string/save_this_race_type"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
