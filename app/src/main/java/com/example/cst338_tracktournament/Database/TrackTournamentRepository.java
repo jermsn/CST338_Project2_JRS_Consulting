@@ -21,6 +21,7 @@ public class TrackTournamentRepository {
     private static TrackTournamentRepository repository;
 
     public TrackTournamentRepository(Application application) {
+        Log.i(MainActivity.Tag, "TrackTournamentRepository is calling getDatabase.");
         TrackTournamentDatabase db = TrackTournamentDatabase.getDatabase(application);
         this.trackTournamentDAO = db.trackTournamentDAO();
         this.raceTypesDAO = db.raceTypesDAO();

@@ -15,7 +15,7 @@ import com.example.cst338_tracktournament.MainActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 3, exportSchema = false)
+@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 4, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
     // Note to future self: none of these can have underscores. The database will not instantiate
     // but no error will be generated.
@@ -31,10 +31,12 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
 
     //Check DB Instances
     static TrackTournamentDatabase getDatabase(final Context context){
+        Log.i(MainActivity.Tag, "getDatabase has been called.");
         if(INSTANCE == null) {
             //make sure nothing else is working on thread
             synchronized (TrackTournamentDatabase.class) {
                 if(INSTANCE == null) {
+                    Log.i(MainActivity.Tag, "There is no instance, triggering the databaseBuilder.");
                     INSTANCE = Room.databaseBuilder(
                                     context.getApplicationContext(),
                                     TrackTournamentDatabase.class,
@@ -43,6 +45,7 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
                             .fallbackToDestructiveMigration()
                             .addCallback(addDefaultValues)
                             .build();
+                    Log.i(MainActivity.Tag, "getDatabase has created a new instance which will be returned.");
                 }
             }
         }
@@ -52,10 +55,10 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db){
+            Log.i(MainActivity.Tag, "Creating Database.");
             super.onCreate(db);
             Log.i(MainActivity.Tag, "DATABASE CREATED");
-            //Lambda function to add default users
-            //TODO: add databaseWriteExecutor.execute(() -> {..}
+            //Lambda function to add default records
             databaseWriteExecutor.execute(() -> {
                 // Add default races to Race Types table
                 RaceTypesDAO raceDao = INSTANCE.raceTypesDAO();
@@ -64,14 +67,10 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
                 Log.i(MainActivity.Tag, "Removed any existing records from the RaceTypes table.");
                 // Create a few default race distances
                 RaceTypes fiveK = new RaceTypes("5 Kilometer", 2.9, 3.3);
-                raceDao.insert(fiveK);
-                Log.i(MainActivity.Tag, "Inserted 5k race into RaceTypes table.");
                 RaceTypes tenK = new RaceTypes("10 Kilometer", 6.0, 6.4);
-                raceDao.insert(tenK);
-                Log.i(MainActivity.Tag, "Inserted 10k race into RaceTypes table.");
                 RaceTypes halfMarathon = new RaceTypes("Half Marathon", 12.8, 13.5);
                 RaceTypes marathon = new RaceTypes("Marathon", 25.0, 29.0);
-
+                raceDao.insert(fiveK, tenK, halfMarathon, marathon);
                 Log.i(MainActivity.Tag, "Default race types added to race type table.");
             });
         }
