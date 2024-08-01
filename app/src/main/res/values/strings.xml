@@ -14,4 +14,13 @@
     <string name="list_runners_by_pace">List runners by pace</string>
     <string name="list_runners_by_training">List runners by training</string>
     <string name="quit">Quit</string>
+    <string name="add_a_new_race_distance">Add a New Race Distance</string>
+    <string name="enter_your_training_below">Enter your training below</string>
+    <string name="name">Name</string>
+    <string name="distance_name">Distance Name</string>
+    <string name="minimum_distance">Minimum Distance</string>
+    <string name="minimum_distance_for_this_name">Minimum Distance for this Race</string>
+    <string name="maximum_distance">Maximum Distance</string>
+    <string name="maximum_distance_for_this_race">Maximum Distance for this Race</string>
+    <string name="save_this_race_type">Save this race type!</string>
 </resources>
