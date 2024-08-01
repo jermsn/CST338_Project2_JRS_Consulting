@@ -2,8 +2,11 @@ package com.example.cst338_tracktournament.Database;
 
 import android.app.Application;
 import android.util.Log;
+
+import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
 import com.example.cst338_tracktournament.MainActivity;
+import com.example.cst338_tracktournament.NewDistanceActivity;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -11,7 +14,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class TrackTournamentRepository {
-    private TrackTournamentDAO trackTournamentDAO;
+    private final TrackTournamentDAO trackTournamentDAO;
+    private final RaceTypesDAO raceTypesDAO;
     private ArrayList<TrackTournamentLog> allLogs;
 
     private static TrackTournamentRepository repository;
@@ -19,6 +23,7 @@ public class TrackTournamentRepository {
     public TrackTournamentRepository(Application application) {
         TrackTournamentDatabase db = TrackTournamentDatabase.getDatabase(application);
         this.trackTournamentDAO = db.trackTournamentDAO();
+        this.raceTypesDAO = db.raceTypesDAO();
         this.allLogs = (ArrayList<TrackTournamentLog>) this.trackTournamentDAO.getAllLogInRecords();
     }
 
@@ -37,7 +42,7 @@ public class TrackTournamentRepository {
         try{
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.i(MainActivity.Tag,"Problem getting GymLogRepository, thread error.");
+            Log.i(MainActivity.Tag,"Problem getting TrackTournamentRepository, thread error.");
         }
         return null;
     }
@@ -64,6 +69,17 @@ public class TrackTournamentRepository {
     public void insertTrackTournamentLog(TrackTournamentLog tournamentLog){
         TrackTournamentDatabase.databaseWriteExecutor.execute(() ->
                 trackTournamentDAO.insert(tournamentLog));
+    }
+
+    /**
+     * This is our method to insert a new RaceType into the database
+     * @param raceTypes a race name and length definitions to be added
+     */
+    public void insertRaceType(RaceTypes raceTypes) {
+        TrackTournamentDatabase.databaseWriteExecutor.execute(()->
+        {
+            raceTypesDAO.insert(raceTypes);
+        });
     }
 
 }

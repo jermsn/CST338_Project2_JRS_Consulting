@@ -7,16 +7,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
 import com.example.cst338_tracktournament.MainActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class}, version = 1, exportSchema = false)
+@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 3, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
-    private static final String DATABASE_NAME = "TrackTournament_database";
+    // Note to future self: none of these can have underscores. The database will not instantiate
+    // but no error will be generated.
+    private static final String DATABASE_NAME = "TrackTournamentDatabase";
     public static final String LOG_IN_TABLE = "logInTable";
+    public static final String RACE_TYPE_TABLE = "raceTypeTable";
 
     private static volatile TrackTournamentDatabase INSTANCE;
     //Only permit # threads of database
@@ -49,11 +54,32 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db){
             super.onCreate(db);
             Log.i(MainActivity.Tag, "DATABASE CREATED");
-            //Lamda function to add default users
+            //Lambda function to add default users
             //TODO: add databaseWriteExecutor.execute(() -> {..}
+            databaseWriteExecutor.execute(() -> {
+                // Add default races to Race Types table
+                RaceTypesDAO raceDao = INSTANCE.raceTypesDAO();
+                // Empty out any existing records
+                raceDao.deleteAll();
+                Log.i(MainActivity.Tag, "Removed any existing records from the RaceTypes table.");
+                // Create a few default race distances
+                RaceTypes fiveK = new RaceTypes("5 Kilometer", 2.9, 3.3);
+                raceDao.insert(fiveK);
+                Log.i(MainActivity.Tag, "Inserted 5k race into RaceTypes table.");
+                RaceTypes tenK = new RaceTypes("10 Kilometer", 6.0, 6.4);
+                raceDao.insert(tenK);
+                Log.i(MainActivity.Tag, "Inserted 10k race into RaceTypes table.");
+                RaceTypes halfMarathon = new RaceTypes("Half Marathon", 12.8, 13.5);
+                RaceTypes marathon = new RaceTypes("Marathon", 25.0, 29.0);
+
+                Log.i(MainActivity.Tag, "Default race types added to race type table.");
+            });
         }
     };
 
+    // Define an abstract method to tie our User DAO to the database
     public abstract TrackTournamentDAO trackTournamentDAO();
 
+    // Define an abstract method to tie our Race Types DAO to the database
+    public abstract RaceTypesDAO raceTypesDAO();
 }
