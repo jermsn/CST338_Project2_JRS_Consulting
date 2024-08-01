@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewDistanceActivity">
+
+    <TextView
+        android:id="@+id/newDistanceTextView"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/add_a_new_race_distance"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/distancePromptTextView"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/enter_your_training_below"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newDistanceTextView" />
+
+    <TextView
+        android:id="@+id/nameDistancePromptTextView"
+        android:layout_width="380dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:gravity="start"
+        android:text="@string/name"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/distancePromptTextView" />
+
+    <EditText
+        android:id="@+id/nameDistanceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_margin="16dp"
+        android:autofillHints="Please enter username"
+        android:gravity="center|bottom"
+        android:hint="@string/distance_name"
+        android:inputType="text"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/distancePromptTextView" />
+
+    <TextView
+        android:id="@+id/minDistancePromptTextView"
+        android:layout_width="380dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:gravity="start"
+        android:text="@string/minimum_distance"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameDistanceEditText" />
+
+    <EditText
+        android:id="@+id/minDistanceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_margin="16dp"
+        android:autofillHints="Please enter a minimum distance"
+        android:gravity="center|bottom"
+        android:hint="@string/minimum_distance_for_this_name"
+        android:inputType="number|numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/minDistancePromptTextView" />
+
+    <TextView
+        android:id="@+id/maxDistancePromptTextView"
+        android:layout_width="380dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:gravity="start"
+        android:text="@string/maximum_distance"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/minDistanceEditText" />
+
+    <EditText
+        android:id="@+id/maxDistanceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_margin="16dp"
+        android:autofillHints="Please enter a minimum distance"
+        android:gravity="center|bottom"
+        android:hint="@string/maximum_distance_for_this_race"
+        android:inputType="number|numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maxDistancePromptTextView" />
+
+    <Button
+        android:id="@+id/buttonCreateNewDistance"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/new_race_distance"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/maxDistanceEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
