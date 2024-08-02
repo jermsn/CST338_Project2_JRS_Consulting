@@ -23,4 +23,8 @@
     <string name="maximum_distance">Maximum Distance</string>
     <string name="maximum_distance_for_this_race">Maximum Distance for this Race</string>
     <string name="save_this_race_type">Save this race type!</string>
+    <string name="users_training"><![CDATA[<User>\'s Training]]></string>
+    <string name="enter_training">Enter Training</string>
+    <string name="review_training">Review Training</string>
+    <string name="user_training_quit">Quit</string>
 </resources>
