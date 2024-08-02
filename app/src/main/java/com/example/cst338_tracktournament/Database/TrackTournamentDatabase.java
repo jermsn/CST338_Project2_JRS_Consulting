@@ -7,13 +7,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.UserLog;
 import com.example.cst338_tracktournament.MainActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class}, version = 1, exportSchema = false)
+@Database(entities = {UserLog.class}, version = 1, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "TrackTournament_database";
     public static final String LOG_IN_TABLE = "logInTable";

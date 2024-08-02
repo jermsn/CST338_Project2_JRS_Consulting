@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.UserLog;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import java.util.List;
 public interface TrackTournamentDAO {
     //Replace record if it exists
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TrackTournamentLog trackTournament);
+    void insert(UserLog trackTournament);
 
     @Query("Select * from " + TrackTournamentDatabase.LOG_IN_TABLE)
-    List<TrackTournamentLog> getAllLogInRecords();
+    List<UserLog> getAllLogInRecords();
 }
