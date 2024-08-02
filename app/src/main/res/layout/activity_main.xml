@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:id="@+id/main"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
     <TextView
             android:layout_width="390dp"
@@ -32,23 +33,23 @@
             android:textSize="24sp"
             android:paddingTop="8dp"
             android:textAlignment="center"
-            android:layout_marginStart="52dp"/>
+            android:layout_marginStart="12dp"/>
     <TextView
             android:text="@string/user_name"
             android:layout_width="184dp"
             android:layout_height="36dp"
             android:id="@+id/userNameLabelTextView"
-            tools:layout_editor_absoluteY="211dp"
             android:layout_marginStart="52dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="24sp"
-            android:layout_marginEnd="257dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="218dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signInLabelTextView"
     />
 
     <EditText
-            android:layout_width="386dp"
+            android:layout_width="350dp"
             android:layout_height="53dp"
             android:id="@+id/userNameInputEditText"
             android:inputType="textAutoComplete"
@@ -56,24 +57,24 @@
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/enter_user_name"
             android:textSize="24sp"
-            android:layout_marginStart="52dp" android:autofillHints="Enter User Name"/>
+            android:gravity="center"
+            android:autofillHints="Enter User Name" app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
             android:text="@string/password"
             android:layout_width="184dp"
             android:layout_height="36dp"
             android:id="@+id/passwordNameLabelTextView"
-            tools:layout_editor_absoluteY="211dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="12dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="24sp"
-            android:layout_marginEnd="257dp"
+            android:textStyle="bold"
+            android:layout_marginEnd="175dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userNameInputEditText"
     />
-
     <EditText
-            android:layout_width="386dp"
+            android:layout_width="350dp"
             android:layout_height="53dp"
             android:id="@+id/passwordInputEditText"
             android:inputType="textPassword"
@@ -81,29 +82,29 @@
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/enter_password"
             android:textSize="24sp"
-            android:layout_marginStart="52dp"
-            android:autofillHints="Enter Password"/>
+            android:gravity="center"
+            android:autofillHints="Enter Password"
+            app:layout_constraintEnd_toEndOf="parent"/>
     <Button
             android:text="@string/log_in"
             android:textColor="@color/black"
-            android:layout_width="392dp"
-            android:layout_height="154dp"
+            android:layout_width="360dp"
+            android:layout_height="100dp"
             android:id="@+id/logInButton"
             android:backgroundTint="@color/design_default_color_secondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="148dp"
-            android:layout_marginStart="48dp"/>
+            android:layout_marginBottom="200dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
     <Button
             android:text="@string/new_user_click_here"
-            android:layout_width="390dp"
-            android:layout_height="41dp"
+            android:layout_width="360dp"
+            android:layout_height="48dp"
             android:id="@+id/button2"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="52dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
