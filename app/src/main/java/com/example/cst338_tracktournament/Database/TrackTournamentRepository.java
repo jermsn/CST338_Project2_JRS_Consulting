@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
 import com.example.cst338_tracktournament.NewDistanceActivity;
 
@@ -14,18 +14,18 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class TrackTournamentRepository {
-    private final TrackTournamentDAO trackTournamentDAO;
+    private final UserDAO userDAO;
     private final RaceTypesDAO raceTypesDAO;
-    private ArrayList<TrackTournamentLog> allLogs;
+    private ArrayList<Users> allLogs;
 
     private static TrackTournamentRepository repository;
 
     public TrackTournamentRepository(Application application) {
         Log.i(MainActivity.Tag, "TrackTournamentRepository is calling getDatabase.");
         TrackTournamentDatabase db = TrackTournamentDatabase.getDatabase(application);
-        this.trackTournamentDAO = db.trackTournamentDAO();
+        this.userDAO = db.userDAO();
         this.raceTypesDAO = db.raceTypesDAO();
-        this.allLogs = (ArrayList<TrackTournamentLog>) this.trackTournamentDAO.getAllLogInRecords();
+        this.allLogs = (ArrayList<Users>) this.userDAO.getAllLogInRecords();
     }
 
     public static TrackTournamentRepository getRepository(Application application){
@@ -48,13 +48,13 @@ public class TrackTournamentRepository {
         return null;
     }
 
-    public ArrayList<TrackTournamentLog> getAllLogs(){
-        Future<ArrayList<TrackTournamentLog>> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
-                new Callable<ArrayList<TrackTournamentLog>>() {
+    public ArrayList<Users> getAllLogs(){
+        Future<ArrayList<Users>> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                new Callable<ArrayList<Users>>() {
 
             @Override
-            public ArrayList<TrackTournamentLog> call() throws Exception {
-                return (ArrayList<TrackTournamentLog>) trackTournamentDAO.getAllLogInRecords();
+            public ArrayList<Users> call() throws Exception {
+                return (ArrayList<Users>) userDAO.getAllLogInRecords();
             }
         });
         try{
@@ -67,9 +67,9 @@ public class TrackTournamentRepository {
         return null;
     }
 
-    public void insertTrackTournamentLog(TrackTournamentLog tournamentLog){
+    public void insertTrackTournamentLog(Users user){
         TrackTournamentDatabase.databaseWriteExecutor.execute(() ->
-                trackTournamentDAO.insert(tournamentLog));
+                userDAO.insert(user));
     }
 
     /**

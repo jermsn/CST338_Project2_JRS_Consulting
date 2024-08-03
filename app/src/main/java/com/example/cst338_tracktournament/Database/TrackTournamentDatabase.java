@@ -9,13 +9,13 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 4, exportSchema = false)
+@Database(entities = {Users.class, RaceTypes.class}, version = 4, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
     // Note to future self: none of these can have underscores. The database will not instantiate
     // but no error will be generated.
@@ -67,6 +67,8 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
             Log.i(MainActivity.Tag, "Database Created");
             //Lambda function to add default records
             databaseWriteExecutor.execute(() -> {
+                // Add the default users
+                userDefaults();
                 // Add the default raceTypes
                 raceTypeDefaults();
             });
@@ -80,15 +82,15 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
      */
     private static void userDefaults() {
         // Assign the related DAO to our database instance
-        TrackTournamentDAO userDao = INSTANCE.trackTournamentDAO();
+        UserDAO userDao = INSTANCE.userDAO();
         // Empty out any existing records
         userDao.deleteAll();
         Log.i(MainActivity.Tag,"Removed any existing records from the User table");
         // Create a few new users
-        TrackTournamentLog user1 = new TrackTournamentLog("Jeremy", "password", "User");
-        TrackTournamentLog user2 = new TrackTournamentLog("Rasna", "password", "User");
-        TrackTournamentLog user3 = new TrackTournamentLog("Steven", "password", "User");
-        TrackTournamentLog coach1 = new TrackTournamentLog("MrBuzzcut", "password", "Coach");
+        Users user1 = new Users("Jeremy", "password", "User");
+        Users user2 = new Users("Rasna", "password", "User");
+        Users user3 = new Users("Steven", "password", "User");
+        Users coach1 = new Users("MrBuzzcut", "password", "Coach");
         userDao.insert(user1, user2, user3, coach1);
         Log.i(MainActivity.Tag, "Default users entered to the TrackTournamentLog table");
     }
@@ -112,7 +114,7 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     }
 
     // Define an abstract method to tie our User DAO to the database
-    public abstract TrackTournamentDAO trackTournamentDAO();
+    public abstract UserDAO userDAO();
 
     // Define an abstract method to tie our Race Types DAO to the database
     public abstract RaceTypesDAO raceTypesDAO();

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(tableName = "logInTable")
-public class TrackTournamentLog {
+public class Users {
     @PrimaryKey(autoGenerate = true)
     private int userId;
 
@@ -14,7 +14,7 @@ public class TrackTournamentLog {
     private String password;
     private String userType;
 
-    public TrackTournamentLog(String name, String password, String userType) {
+    public Users(String name, String password, String userType) {
         this.name = name;
         this.password = password;
         this.userType = userType;
@@ -56,7 +56,7 @@ public class TrackTournamentLog {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TrackTournamentLog that = (TrackTournamentLog) o;
+        Users that = (Users) o;
         return getUserId() == that.getUserId() && Objects.equals(getName(), that.getName()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getUserType(), that.getUserType());
     }
 
