@@ -54,29 +54,62 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    /**
+     * The addDefaultValues method is called when the database must be rebuilt.
+     * We use this to populate default values for our tables to assist with building
+     * or demonstrating functionality. Default values for each table are called separately
+     * so they may be individually commented out if needed.
+     */
     private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db){
-            Log.i(MainActivity.Tag, "Creating Database.");
             super.onCreate(db);
-            Log.i(MainActivity.Tag, "DATABASE CREATED");
+            Log.i(MainActivity.Tag, "Database Created");
             //Lambda function to add default records
             databaseWriteExecutor.execute(() -> {
-                // Add default races to Race Types table
-                RaceTypesDAO raceDao = INSTANCE.raceTypesDAO();
-                // Empty out any existing records
-                raceDao.deleteAll();
-                Log.i(MainActivity.Tag, "Removed any existing records from the RaceTypes table.");
-                // Create a few default race distances
-                RaceTypes fiveK = new RaceTypes("5 Kilometer", 2.9, 3.3);
-                RaceTypes tenK = new RaceTypes("10 Kilometer", 6.0, 6.4);
-                RaceTypes halfMarathon = new RaceTypes("Half Marathon", 12.8, 13.5);
-                RaceTypes marathon = new RaceTypes("Marathon", 25.0, 29.0);
-                raceDao.insert(fiveK, tenK, halfMarathon, marathon);
-                Log.i(MainActivity.Tag, "Default race types added to race type table.");
+                // Add the default raceTypes
+                raceTypeDefaults();
             });
         }
     };
+
+    /**
+     * This populates four sample users (three runners and one coach) into the database
+     * for build and demonstration purposes. We will assume that these are added in order
+     * and the user DB will give these users 1,2,3,4 on insert.
+     */
+    private static void userDefaults() {
+        // Assign the related DAO to our database instance
+        TrackTournamentDAO userDao = INSTANCE.trackTournamentDAO();
+        // Empty out any existing records
+        userDao.deleteAll();
+        Log.i(MainActivity.Tag,"Removed any existing records from the User table");
+        // Create a few new users
+        TrackTournamentLog user1 = new TrackTournamentLog("Jeremy", "password", "User");
+        TrackTournamentLog user2 = new TrackTournamentLog("Rasna", "password", "User");
+        TrackTournamentLog user3 = new TrackTournamentLog("Steven", "password", "User");
+        TrackTournamentLog coach1 = new TrackTournamentLog("MrBuzzcut", "password", "Coach");
+        userDao.insert(user1, user2, user3, coach1);
+        Log.i(MainActivity.Tag, "Default users entered to the TrackTournamentLog table");
+    }
+
+    /**
+     * This populates common race types into the RaceTypes table as a starting utility
+     */
+    private static void raceTypeDefaults() {
+        // Assign the related DAO to our database instance
+        RaceTypesDAO raceDao = INSTANCE.raceTypesDAO();
+        // Empty out any existing records
+        raceDao.deleteAll();
+        Log.i(MainActivity.Tag, "Removed any existing records from the RaceTypes table.");
+        // Create a few default race distances
+        RaceTypes fiveK = new RaceTypes("5 Kilometer", 2.9, 3.3);
+        RaceTypes tenK = new RaceTypes("10 Kilometer", 6.0, 6.4);
+        RaceTypes halfMarathon = new RaceTypes("Half Marathon", 12.8, 13.5);
+        RaceTypes marathon = new RaceTypes("Marathon", 25.0, 29.0);
+        raceDao.insert(fiveK, tenK, halfMarathon, marathon);
+        Log.i(MainActivity.Tag, "Default race types added to race type table.");
+    }
 
     // Define an abstract method to tie our User DAO to the database
     public abstract TrackTournamentDAO trackTournamentDAO();
