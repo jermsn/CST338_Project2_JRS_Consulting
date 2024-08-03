@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertTrackLogRecord(){
-        TrackTournamentLog log = new TrackTournamentLog(mUserName,mPassword, mUserType);
+        Users log = new Users(mUserName,mPassword, mUserType);
         repository.insertTrackTournamentLog(log);
     }
 
