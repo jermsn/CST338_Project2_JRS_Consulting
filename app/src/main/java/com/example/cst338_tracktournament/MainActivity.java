@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     private void verifyUser(){
         String username = binding.userNameInputEditText.getText().toString();
         if(username.isEmpty()){
-            // toastMaker("Username may not be blank");
+            toastMaker("Username may not be blank");
             return;
         }
         LiveData<Users> userObserver = repository.getUserByUserName(username);
@@ -95,18 +95,14 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
                     sharedPrefEditor.putInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,user.getUserId());
                     sharedPrefEditor.apply();
-                    //Display either Coach or Training window for valid user
-                    if(user.getUserType().equals("Coach")) {
-                        startActivity(Coach_Activity.coachActivityIntentFactory(getApplicationContext()));
-                    }else {
-                        startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
-                    }
+                    startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
                     toastMaker(String.format("Valid password for user id: %s", user.getUserId()));
                     binding.passwordInputEditText.setSelection(0);
                 }else{
-                    toastMaker(String.format("%s is not a valid username.", username));
+                    toastMaker("Invalid credentials");
                 }
             }else {
+                toastMaker(String.format("%s is not a valid username.", username));
                 binding.userNameInputEditText.setSelection(0);
             }
         });
