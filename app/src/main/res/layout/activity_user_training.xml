@@ -46,11 +46,11 @@
             android:layout_marginStart="12dp"/>
     <Button
             android:text="@string/coach"
-            android:textColor="@color/white"
+            android:textColor="@color/faded"
             android:layout_width="392dp"
             android:layout_height="50dp"
             android:id="@+id/coachTrainingButton"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/faded"
             android:layout_margin="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reviewTrainingButton"
