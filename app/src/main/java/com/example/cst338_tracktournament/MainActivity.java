@@ -96,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
                     sharedPrefEditor.putInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,user.getUserId());
                     sharedPrefEditor.apply();
                     //Display either Coach or Training window for valid user
-                    if(user.getUserType().equals("Coach")) {
-                        startActivity(Coach_Activity.coachActivityIntentFactory(getApplicationContext()));
-                    }else {
-                        startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
-                    }
+//                    if(user.getUserType().equals("Coach")) {
+//                        startActivity(Coach_Activity.coachActivityIntentFactory(getApplicationContext()));
+//                    }else {
+//                        startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
+//                    }
+                    startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
                     toastMaker(String.format("Valid password for user id: %s", user.getUserId()));
                     binding.passwordInputEditText.setSelection(0);
                 }else{
