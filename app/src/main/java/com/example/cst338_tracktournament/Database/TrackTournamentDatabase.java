@@ -10,12 +10,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.MainActivity;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 4, exportSchema = false)
+@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 7, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
     // Note to future self: none of these can have underscores. The database will not instantiate
     // but no error will be generated.
