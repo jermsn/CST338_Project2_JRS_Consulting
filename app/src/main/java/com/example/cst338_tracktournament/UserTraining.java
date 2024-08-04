@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityUserTrainingBinding;
 
 import java.util.List;
@@ -59,7 +59,7 @@ public class UserTraining extends AppCompatActivity {
         // Launch the logon intent factory
         int userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
 
-        LiveData<TrackTournamentLog> userObserver = repository.getUserById(userId);
+        LiveData<Users> userObserver = repository.getUserById(userId);
 
         userObserver.observe(this, user -> {
             if(user != null) {

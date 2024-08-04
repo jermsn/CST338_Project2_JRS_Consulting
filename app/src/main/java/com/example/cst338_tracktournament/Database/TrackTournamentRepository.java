@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
+import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
 
@@ -73,39 +74,25 @@ public class TrackTournamentRepository {
                 userDAO.insert(user));
     }
 
-    /**
-     * Retrieves user from table.
-     * @param name user name
-     * @return TrackTournamentLog
-     */
-    public LiveData<TrackTournamentLog> getUserByUserName(String name) {
-        return trackTournamentDAO.getUserByUserName(name);
-    }
 
-    public TrackTournamentLog getUserByName(String name){
-        return trackTournamentDAO.getUserByName(name);
-    }
-
-    public LiveData<TrackTournamentLog> getUserById(int userId){
-        return  trackTournamentDAO.getUserByUserId(userId);
-    }
 
     /**
      * Retrieves user from table.
      * @param name user name
      * @return TrackTournamentLog
      */
-    public LiveData<TrackTournamentLog> getUserByUserName(String name) {
-        return trackTournamentDAO.getUserByUserName(name);
+    public LiveData<Users> getUserByUserName(String name) {
+        return userDAO.getUserByUserName(name);
     }
 
-    public TrackTournamentLog getUserByName(String name){
-        return trackTournamentDAO.getUserByName(name);
+    public Users getUserByName(String name){
+        return userDAO.getUserByName(name);
     }
 
-    public LiveData<TrackTournamentLog> getUserById(int userId){
-        return  trackTournamentDAO.getUserByUserId(userId);
+    public LiveData<Users> getUserById(int userId){
+        return userDAO.getUserByUserId(userId);
     }
+
 
     /**
      * This is our method to insert a new RaceType into the database

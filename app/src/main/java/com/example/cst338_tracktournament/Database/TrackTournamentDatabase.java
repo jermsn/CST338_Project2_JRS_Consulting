@@ -15,7 +15,6 @@ import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.Database.typeConverters.LocalDateTimeConverter;
 import com.example.cst338_tracktournament.MainActivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

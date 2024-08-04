@@ -1,5 +1,6 @@
 package com.example.cst338_tracktournament.Database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -26,9 +27,23 @@ public interface UserDAO {
     void deleteAll();
 
     /**
+     * Return a user object that matches the supplied name
+     * @param name the name of the user to return
+     * @return the user matching the supplied name
+     */
+    @Query("SELECT * FROM " + TrackTournamentDatabase.LOG_IN_TABLE + " WHERE name == :name")
+    Users getUserByName(String name);
+
+    @Query("SELECT * FROM " + TrackTournamentDatabase.LOG_IN_TABLE + " WHERE name == :name")
+    LiveData<Users> getUserByUserName(String name);
+
+    /**
      * Stored method to return all users in a list
      * @return a list of users
      */
     @Query("Select * from " + TrackTournamentDatabase.LOG_IN_TABLE)
     List<Users> getAllLogInRecords();
+
+    @Query("SELECT * FROM " + TrackTournamentDatabase.LOG_IN_TABLE + " WHERE userId == :userId")
+    LiveData<Users> getUserByUserId(int userId);
 }

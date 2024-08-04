@@ -14,7 +14,7 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityNewUserBinding;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class NewUserActivity extends AppCompatActivity {
     private ActivityNewUserBinding binding;
     private TrackTournamentRepository repository;
-    private ArrayList<TrackTournamentLog> userList;
+    private ArrayList<Users> userList;
 
 
     @Override
@@ -75,7 +75,7 @@ public class NewUserActivity extends AppCompatActivity {
              return false;
          }
 
-         for(TrackTournamentLog log : userList)
+         for(Users log : userList)
          {
              if(log.getName().equals(newUserName)) {
                  showMessageDialog(String.format("User %s already exists.", newUserName));
@@ -108,7 +108,7 @@ public class NewUserActivity extends AppCompatActivity {
         String newUserName = binding.newUserNameInputEditText.getText().toString();
         String newPassword = binding.newPasswordInputEditText.getText().toString();
 
-        TrackTournamentLog log = new TrackTournamentLog(newUserName,newPassword, "runner");
+        Users log = new Users(newUserName,newPassword, "runner");
         repository.insertTrackTournamentLog(log);
         //Go to login screen for user to proceed.
         binding.cancelNewUserButton.callOnClick();
