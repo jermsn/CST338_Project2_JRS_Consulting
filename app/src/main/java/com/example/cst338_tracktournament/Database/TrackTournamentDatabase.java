@@ -40,7 +40,7 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     static TrackTournamentDatabase getDatabase(final Context context){
         Log.i(MainActivity.Tag, "getDatabase has been called.");
         // The command below can be uncommented and run to fully rebuild the database, including default values
-        context.deleteDatabase(DATABASE_NAME);
+        //context.deleteDatabase(DATABASE_NAME);
         if(INSTANCE == null) {
             //make sure nothing else is working on thread
             synchronized (TrackTournamentDatabase.class) {
