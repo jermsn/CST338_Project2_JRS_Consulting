@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cst338_tracktournament.databinding.ActivityCoachBinding;
 
+
 public class Coach_Activity extends AppCompatActivity {
 
     //Bind this code to our activity_coach.xml interface
@@ -33,10 +34,11 @@ public class Coach_Activity extends AppCompatActivity {
         // This is our Quit/Logout button. Right now it just moves back to the logon screen
         //TODO: Needs to actually log the user out
         binding.buttonCoachQuit.setOnClickListener(new View.OnClickListener() {
+            int userId = 0;
             @Override
             public void onClick(View v) {
                 // Launch the logon intent factory
-                Intent intent = MainActivity.mainActivityFactory(getApplicationContext());
+                Intent intent = MainActivity.mainActivityFactory(getApplicationContext(),userId);
                 startActivity(intent);
             }
         });

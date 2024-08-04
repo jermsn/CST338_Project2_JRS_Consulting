@@ -3,12 +3,13 @@ package com.example.cst338_tracktournament.Database;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
-import com.example.cst338_tracktournament.NewDistanceActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -70,6 +71,23 @@ public class TrackTournamentRepository {
     public void insertTrackTournamentLog(Users user){
         TrackTournamentDatabase.databaseWriteExecutor.execute(() ->
                 userDAO.insert(user));
+    }
+
+    /**
+     * Retrieves user from table.
+     * @param name user name
+     * @return TrackTournamentLog
+     */
+    public LiveData<TrackTournamentLog> getUserByUserName(String name) {
+        return trackTournamentDAO.getUserByUserName(name);
+    }
+
+    public TrackTournamentLog getUserByName(String name){
+        return trackTournamentDAO.getUserByName(name);
+    }
+
+    public LiveData<TrackTournamentLog> getUserById(int userId){
+        return  trackTournamentDAO.getUserByUserId(userId);
     }
 
     /**
