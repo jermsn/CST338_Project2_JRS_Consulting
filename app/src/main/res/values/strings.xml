@@ -27,4 +27,9 @@
     <string name="enter_training">Enter Training</string>
     <string name="review_training">Review Training</string>
     <string name="user_training_quit">Quit</string>
+    <string name="create_a_new_user">Create a New User</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="register">Register</string>
+    <string name="cancel_new_user">Cancel</string>
+    <string name="coach">Coach</string>
 </resources>
