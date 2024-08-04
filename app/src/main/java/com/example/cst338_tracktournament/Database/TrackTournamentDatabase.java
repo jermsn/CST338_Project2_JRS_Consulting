@@ -6,23 +6,29 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
+import com.example.cst338_tracktournament.Database.typeConverters.LocalDateTimeConverter;
 import com.example.cst338_tracktournament.MainActivity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {TrackTournamentLog.class, RaceTypes.class}, version = 7, exportSchema = false)
+@TypeConverters(LocalDateTimeConverter.class)
+@Database(entities = {Users.class, RaceTypes.class, UserTrainingLog.class}, version = 5, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
     // Note to future self: none of these can have underscores. The database will not instantiate
     // but no error will be generated.
     private static final String DATABASE_NAME = "TrackTournamentDatabase";
     public static final String LOG_IN_TABLE = "logInTable";
     public static final String RACE_TYPE_TABLE = "raceTypeTable";
+    public static final String TRAINING_LOG_TABLE = "trainingLogTable";
 
     private static volatile TrackTournamentDatabase INSTANCE;
     //Only permit # threads of database
@@ -68,6 +74,10 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
             Log.i(MainActivity.Tag, "Database Created");
             //Lambda function to add default records
             databaseWriteExecutor.execute(() -> {
+                // Add the default users
+                userDefaults();
+                // Add the default training logs
+                trainingLogDefaults();
                 // Add the default raceTypes
                 raceTypeDefaults();
             });
@@ -81,17 +91,55 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
      */
     private static void userDefaults() {
         // Assign the related DAO to our database instance
-        TrackTournamentDAO userDao = INSTANCE.trackTournamentDAO();
+        UserDAO userDao = INSTANCE.userDAO();
         // Empty out any existing records
         userDao.deleteAll();
         Log.i(MainActivity.Tag,"Removed any existing records from the User table");
         // Create a few new users
-        TrackTournamentLog user1 = new TrackTournamentLog("Jeremy", "password", "User");
-        TrackTournamentLog user2 = new TrackTournamentLog("Rasna", "password", "User");
-        TrackTournamentLog user3 = new TrackTournamentLog("Steven", "password", "User");
-        TrackTournamentLog coach1 = new TrackTournamentLog("MrBuzzcut", "password", "Coach");
+        Users user1 = new Users("Jeremy", "password", "User");
+        Users user2 = new Users("Rasna", "password", "User");
+        Users user3 = new Users("Steven", "password", "User");
+        Users coach1 = new Users("MrBuzzcut", "password", "Coach");
         userDao.insert(user1, user2, user3, coach1);
-        Log.i(MainActivity.Tag, "Default users entered to the TrackTournamentLog table");
+        Log.i(MainActivity.Tag, "Default users entered to the Users table");
+    }
+
+    /**
+     * This populates four sample users (three runners and one coach) into the database
+     * for build and demonstration purposes. We will assume that these are added in order
+     * and the user DB will give these users 1,2,3,4 on insert.
+     */
+    private static void trainingLogDefaults() {
+        // Assign the related DAO to our database instance
+        UserTrainingDAO trainingLogDao = INSTANCE.trainingLogDAO();
+        // Empty out any existing records
+        trainingLogDao.deleteAll();
+        Log.i(MainActivity.Tag,"Removed any existing training logs from the training log table");
+        // We're going to create a few mock days for use in our inserts
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime yesterday = today.minusDays(1);
+        LocalDateTime lastWeek = today.minusWeeks(1);
+        LocalDateTime lastMonth = today.minusMonths(1);
+        // Create a few new users
+        // Four for Jeremy, he will be our 5k expert; 5k times will be around 30 minutes (1800 seconds)
+        UserTrainingLog JeremyLog1 = new UserTrainingLog(1, today, 3.1, 1800, false);
+        UserTrainingLog JeremyLog2 = new UserTrainingLog(1, yesterday, 3.0, 1832, false);
+        UserTrainingLog JeremyLog3 = new UserTrainingLog(1, lastWeek, 3.5, 1901, false);
+        UserTrainingLog JeremyLog4 = new UserTrainingLog(1, lastMonth, 5.9, 4000 , false);
+        // Four for Rasna, she will be our 10k expert; 10k times will be around 60 minutes (3600 seconds)
+        UserTrainingLog RasnaLog1 = new UserTrainingLog(2, today, 6.1, 3660, false);
+        UserTrainingLog RasnaLog2 = new UserTrainingLog(2, yesterday, 6.3, 3813, false);
+        UserTrainingLog RasnaLog3 = new UserTrainingLog(2, lastWeek, 6.2, 3699, false);
+        UserTrainingLog RasnaLog4 = new UserTrainingLog(2, lastMonth, 6.2, 3601 , true);
+        // Five for Steven, he will be our marathon expert; 10k times will be around 4 hours (14400 seconds)
+        UserTrainingLog StevenLog1 = new UserTrainingLog(3, today, 26.2, 14400, false);
+        UserTrainingLog StevenLog2 = new UserTrainingLog(3, yesterday, 26.0, 14301, false);
+        UserTrainingLog StevenLog3 = new UserTrainingLog(3, lastWeek, 26.2, 15000, false);
+        UserTrainingLog StevenLog4 = new UserTrainingLog(3, lastMonth, 13.1, 7227 , true);
+        UserTrainingLog StevenLog5 = new UserTrainingLog(3, lastMonth, 3.1, 1900 , true);
+        // Insert all these logs
+        trainingLogDao.insert(JeremyLog1, JeremyLog2, JeremyLog3, JeremyLog4, RasnaLog1, RasnaLog2, RasnaLog3, RasnaLog4, StevenLog1, StevenLog2, StevenLog3, StevenLog4, StevenLog5);
+        Log.i(MainActivity.Tag, "Sample training longs entered to the UserTrainingLog table");
     }
 
     /**
@@ -113,7 +161,10 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     }
 
     // Define an abstract method to tie our User DAO to the database
-    public abstract TrackTournamentDAO trackTournamentDAO();
+    public abstract UserDAO userDAO();
+
+    // Define an abstract method to tie our User DAO to the database
+    public abstract UserTrainingDAO trainingLogDAO();
 
     // Define an abstract method to tie our Race Types DAO to the database
     public abstract RaceTypesDAO raceTypesDAO();
