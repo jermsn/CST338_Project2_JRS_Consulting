@@ -19,6 +19,11 @@ import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ *  This defines the Data Access Object (DAO) for Track Tournament.
+ *  @author Steven Jackson
+ *  Date: 2024-07-31
+ */
 @TypeConverters(LocalDateTimeConverter.class)
 @Database(entities = {Users.class, RaceTypes.class, UserTrainingLog.class}, version = 5, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
@@ -167,4 +172,5 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
 
     // Define an abstract method to tie our Race Types DAO to the database
     public abstract RaceTypesDAO raceTypesDAO();
+
 }
