@@ -30,7 +30,7 @@
     <string name="new_training_for_user"><![CDATA[New Training for\n<User>]]></string>
     <string name="enter_training_below">Enter training below</string>
     <string name="newTrainingDate">Date:</string>
-    <string name="enter_training_date">Enter Training Date</string>
+    <string name="enter_training_date">Enter Date: yyy-mm-dd</string>
     <string name="enter_new_training_distance">Distance:</string>
     <string name="enter_distance">Enter Distance</string>
     <string name="enter_new_training_time">Time:</string>
@@ -44,4 +44,5 @@
     <string name="register">Register</string>
     <string name="cancel_new_user">Cancel</string>
     <string name="coach">Coach</string>
+    <string name="new_training_enter_time">Enter Time</string>
 </resources>
