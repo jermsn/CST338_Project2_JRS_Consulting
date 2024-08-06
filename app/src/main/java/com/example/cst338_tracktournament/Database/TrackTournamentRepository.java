@@ -8,6 +8,7 @@ import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
+import com.example.cst338_tracktournament.UserTraining;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.concurrent.Future;
 public class TrackTournamentRepository {
     private final UserDAO userDAO;
     private final RaceTypesDAO raceTypesDAO;
+    private final UserTrainingDAO userTrainingDAO;
     private ArrayList<Users> allLogs;
 
     private static TrackTournamentRepository repository;
@@ -27,6 +29,7 @@ public class TrackTournamentRepository {
         TrackTournamentDatabase db = TrackTournamentDatabase.getDatabase(application);
         this.userDAO = db.userDAO();
         this.raceTypesDAO = db.raceTypesDAO();
+        this.userTrainingDAO = db.trainingLogDAO();
         this.allLogs = (ArrayList<Users>) this.userDAO.getAllLogInRecords();
     }
 
@@ -72,6 +75,11 @@ public class TrackTournamentRepository {
     public void insertTrackTournamentLog(Users user){
         TrackTournamentDatabase.databaseWriteExecutor.execute(() ->
                 userDAO.insert(user));
+    }
+
+    public void insertUserTrainingLog(UserTrainingLog userTraining){
+        TrackTournamentDatabase.databaseWriteExecutor.execute(() ->
+               userTrainingDAO.insert(userTraining));
     }
 
 

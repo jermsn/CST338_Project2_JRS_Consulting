@@ -53,6 +53,8 @@ public class UserTraining extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO open the training window
+                Intent intent =  NewTrainingForUser.newTrainingForUserActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
             }
         });
 
