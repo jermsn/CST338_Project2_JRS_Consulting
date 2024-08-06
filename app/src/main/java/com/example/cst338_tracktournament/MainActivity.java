@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 getInformationFromDisplay();
-               // insertTrackLogRecord();
+                // insertTrackLogRecord();
                 verifyUser();
                 /*if(verifyUser()){
                     Intent intent = UserTraining.userTrainingActivityIntentFactory(getApplicationContext());
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertTrackLogRecord(){
-        TrackTournamentLog log = new TrackTournamentLog(mUserName,mPassword, "Runner");
+        Users log = new Users(mUserName,mPassword, "Runner");
         repository.insertTrackTournamentLog(log);
     }
 
@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
     private void verifyUser(){
         String username = binding.userNameInputEditText.getText().toString();
         if(username.isEmpty()){
-           // toastMaker("Username may not be blank");
+            toastMaker("Username may not be blank");
             return;
         }
-        LiveData<TrackTournamentLog> userObserver = repository.getUserByUserName(username);
+        LiveData<Users> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this, user -> {
             if(user != null){
                 String password = binding.passwordInputEditText.getText().toString();
@@ -95,18 +95,14 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
                     sharedPrefEditor.putInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,user.getUserId());
                     sharedPrefEditor.apply();
-                    //Display either Coach or Training window for valid user
-                    if(user.getUserType().equals("Coach")) {
-                        startActivity(Coach_Activity.coachActivityIntentFactory(getApplicationContext()));
-                    }else {
-                        startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
-                    }
+                    startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
                     toastMaker(String.format("Valid password for user id: %s", user.getUserId()));
                     binding.passwordInputEditText.setSelection(0);
                 }else{
-                    toastMaker(String.format("%s is not a valid username.", username));
+                    toastMaker("Invalid credentials");
                 }
             }else {
+                toastMaker(String.format("%s is not a valid username.", username));
                 binding.userNameInputEditText.setSelection(0);
             }
         });
@@ -119,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
      * @return the intent of the main application
      */
     static Intent mainActivityFactory (Context context, int userId) {
-       // return new Intent(context, MainActivity.class);
+        // return new Intent(context, MainActivity.class);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;

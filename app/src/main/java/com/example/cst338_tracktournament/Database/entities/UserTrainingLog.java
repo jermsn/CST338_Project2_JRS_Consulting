@@ -14,8 +14,8 @@ public class UserTrainingLog {
 
     private int userId;
     private LocalDateTime date;
-    private float distance;
-    private Timestamp time;
+    private double distance;
+    private Integer time;
     private boolean isCompetition;
 
 
@@ -43,12 +43,28 @@ public class UserTrainingLog {
         this.date = date;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    /**
+     * Primary constructor for this entity
+     * @param userId the numeric user ID from the Users table
+     * @param date the date of the run
+     * @param distance the miles run; accepts decimals
+     * @param time the amount of time the run took in seconds
+     * @param isCompetition boolean indicator of whether the run was a race or not.
+     */
+    public UserTrainingLog(int userId, LocalDateTime date, double distance, Integer time, boolean isCompetition) {
+        this.userId = userId;
+        this.date = date;
+        this.distance = distance;
+        this.time = time;
+        this.isCompetition = isCompetition;
     }
 
     /**
@@ -56,7 +72,7 @@ public class UserTrainingLog {
      * <a href="https://developer.android.com/reference/java/sql/Timestamp">...</a>
      * @return Timestamp
      */
-    public Timestamp getTime() {
+    public Integer getTime() {
         return time;
     }
 
@@ -66,7 +82,7 @@ public class UserTrainingLog {
      * <a href="https://developer.android.com/reference/java/sql/Timestamp">...</a>
      * @param time in milliseconds
      */
-    public void setTime(Timestamp time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
@@ -83,7 +99,7 @@ public class UserTrainingLog {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserTrainingLog that = (UserTrainingLog) o;
-        return getTrainingId() == that.getTrainingId() && getUserId() == that.getUserId() && Float.compare(getDistance(), that.getDistance()) == 0 && isCompetition() == that.isCompetition() && Objects.equals(getDate(), that.getDate()) && Objects.equals(getTime(), that.getTime());
+        return trainingId == that.trainingId && userId == that.userId && Double.compare(distance, that.distance) == 0 && isCompetition == that.isCompetition && Objects.equals(date, that.date) && Objects.equals(time, that.time);
     }
 
     @Override

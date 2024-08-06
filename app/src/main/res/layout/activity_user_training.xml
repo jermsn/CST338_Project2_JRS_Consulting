@@ -23,7 +23,7 @@
     <Button
             android:text="@string/enter_training"
             android:textColor="@color/black"
-            android:layout_width="392dp"
+            android:layout_width="388dp"
             android:layout_height="50dp"
             android:id="@+id/EnterTrainingButton"
             android:backgroundTint="@color/green"
@@ -36,7 +36,7 @@
     <Button
             android:text="@string/review_training"
             android:textColor="@color/black"
-            android:layout_width="392dp"
+            android:layout_width="388dp"
             android:layout_height="50dp"
             android:id="@+id/reviewTrainingButton"
             android:backgroundTint="@color/yellow"
@@ -46,11 +46,11 @@
             android:layout_marginStart="12dp"/>
     <Button
             android:text="@string/coach"
-            android:textColor="@color/white"
-            android:layout_width="392dp"
+            android:textColor="@color/faded"
+            android:layout_width="388dp"
             android:layout_height="50dp"
             android:id="@+id/coachTrainingButton"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/faded"
             android:layout_margin="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reviewTrainingButton"
@@ -75,7 +75,7 @@
     <Button
             android:text="@string/user_training_quit"
             android:textColor="@color/black"
-            android:layout_width="392dp"
+            android:layout_width="388dp"
             android:layout_height="75dp"
             android:id="@+id/userTrainingQuitButton"
             android:backgroundTint="@color/yellow"
