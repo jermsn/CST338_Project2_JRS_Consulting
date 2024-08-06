@@ -27,7 +27,6 @@
     <string name="enter_training">Enter Training</string>
     <string name="review_training">Review Training</string>
     <string name="user_training_quit">Quit</string>
-  UserTraining
     <string name="new_training_for_user"><![CDATA[New Training for\n<User>]]></string>
     <string name="enter_training_below">Enter training below</string>
     <string name="newTrainingDate">Date:</string>
@@ -45,5 +44,4 @@
     <string name="register">Register</string>
     <string name="cancel_new_user">Cancel</string>
     <string name="coach">Coach</string>
- main
 </resources>
