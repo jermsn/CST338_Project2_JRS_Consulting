@@ -48,7 +48,7 @@
             android:layout_width="350dp"
             android:layout_height="53dp"
             android:id="@+id/newTrainingDateInputEditText"
-            android:inputType="date"
+            android:inputType="datetime"
             app:layout_constraintTop_toBottomOf="@+id/newTrainingDateLabelTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/enter_training_date"
@@ -73,7 +73,7 @@
             android:layout_width="350dp"
             android:layout_height="53dp"
             android:id="@+id/newTrainingDistanceInputEditText"
-            android:inputType="textAutoComplete"
+            android:inputType="numberDecimal"
             app:layout_constraintTop_toBottomOf="@+id/newTrainingDistanceLabelTextView"
             app:layout_constraintStart_toStartOf="parent"
             android:hint="@string/enter_distance"
@@ -100,10 +100,10 @@
             android:inputType="textAutoComplete"
             app:layout_constraintTop_toBottomOf="@+id/newTrainingTimeLabelTextView"
             app:layout_constraintStart_toStartOf="parent"
-            android:hint="@string/enter_distance"
+            android:hint="@string/new_training_enter_time"
             android:textSize="24sp"
             android:gravity="center"
-            android:autofillHints="Enter Distance"
+            android:autofillHints="Enter Time"
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
@@ -120,13 +120,13 @@
     />
     <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:id="@+id/checkBox"
-
+            android:layout_height="48dp"
+            android:id="@+id/newTrainingCompetitionCheckBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newTrainingTimeInputEditText"
             app:layout_constraintStart_toEndOf="@+id/competitionRunLabelTextView"
-            app:layout_constraintHorizontal_bias="0.142"/>
+            app:layout_constraintHorizontal_bias="0.142"
+            android:minWidth="48dp"/>
     <Button
             android:text="@string/log_it"
             android:textColor="@color/black"
