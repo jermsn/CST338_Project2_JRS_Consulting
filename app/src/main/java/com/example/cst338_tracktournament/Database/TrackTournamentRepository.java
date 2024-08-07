@@ -8,7 +8,6 @@ import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
-import com.example.cst338_tracktournament.UserTraining;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +110,61 @@ public class TrackTournamentRepository {
         {
             raceTypesDAO.insert(raceTypes);
         });
+    }
+
+    /**
+     * Method to return logs for a single user ID
+     * @param loggedInUserId the a userId which you want to retrieve the logs for
+     * @return a LiveData list of GymLogs
+     */
+    public LiveData<List<UserTrainingLog>> getAllLogsByUserIdLiveData(int loggedInUserId) {
+        return userTrainingDAO.getRecordsByUserIdLiveData(loggedInUserId);
+    }
+
+    /**
+     * This uses a Future to and returns a list of race types and racers sorted by pace
+     * @return ArrayList of type RaceTypesDAO.paceResults
+     */
+    public ArrayList<RaceTypesDAO.paceResults> getRacesByPace() {
+        Future<ArrayList<RaceTypesDAO.paceResults>> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                // This is an interface, we are calling it in-line, which is called an
+                // anonymous inner class (note the call right below)
+                new Callable<ArrayList<RaceTypesDAO.paceResults>>() {
+                    @Override
+                    public ArrayList<RaceTypesDAO.paceResults> call() throws Exception {
+                        return (ArrayList<RaceTypesDAO.paceResults>) raceTypesDAO.getRacesByPace();
+                    }
+                }
+        );
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.i(MainActivity.Tag, "Problem when getting races by pace from the repository." );
+        }
+        return null;
+    }
+
+    /**
+     * This uses a Future to and returns a list of race types and racers sorted by pace
+     * @return ArrayList of type RaceTypesDAO.countResults
+     */
+    public ArrayList<RaceTypesDAO.countResults> getRacesByTrainingCount() {
+        Future<ArrayList<RaceTypesDAO.countResults>> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                // This is an interface, we are calling it in-line, which is called an
+                // anonymous inner class (note the call right below)
+                new Callable<ArrayList<RaceTypesDAO.countResults>>() {
+                    @Override
+                    public ArrayList<RaceTypesDAO.countResults> call() throws Exception {
+                        return (ArrayList<RaceTypesDAO.countResults>) raceTypesDAO.getRacesByTrainingCount();
+                    }
+                }
+        );
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.i(MainActivity.Tag, "Problem when getting races by pace from the repository." );
+        }
+        return null;
     }
 
 }

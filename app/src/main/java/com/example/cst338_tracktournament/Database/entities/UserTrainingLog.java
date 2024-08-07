@@ -1,11 +1,19 @@
 package com.example.cst338_tracktournament.Database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 import java.util.Objects;
+/**
+ *  Defines the functionality to view a user's training log history
+ *  @author Steven Jackson
+ *  Date: 2024-07-25
+ */
 
 @Entity(tableName = "trainingLogTable")
 public class UserTrainingLog {
@@ -105,5 +113,31 @@ public class UserTrainingLog {
     @Override
     public int hashCode() {
         return Objects.hash(getTrainingId(), getUserId(), getDate(), getDistance(), getTime(), isCompetition());
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        String runType = isCompetition ? "Competition" : "Training";
+        Integer pace = (int) (time/distance);
+        return  date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + '\n' +
+                "Distance: " + distance + '\n' +
+                "Time: " + secondsToStringTime(time) + " Pace: " + secondsToStringTime(pace) + '\n' +
+                runType + '\n';
+    }
+
+
+    /**
+     * This method is used to display the number of seconds as a HH:MM:SS variable
+     * @param totalSecs an Integer representing the number of seconds
+     * @return a string showing the elapsed time in HH:MM:SS format
+     */
+    public static String secondsToStringTime(Integer totalSecs) {
+        Integer hours = totalSecs / 3600;
+        Integer minutes = (totalSecs % 3600) / 60;
+        Integer seconds = totalSecs % 60;
+
+        return String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds);
     }
 }

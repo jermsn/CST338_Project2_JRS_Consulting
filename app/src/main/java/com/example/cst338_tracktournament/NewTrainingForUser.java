@@ -1,6 +1,8 @@
 package com.example.cst338_tracktournament;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -17,7 +19,9 @@ import com.example.cst338_tracktournament.databinding.ActivityNewTrainingForUser
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 
 /**
@@ -83,36 +87,57 @@ public class NewTrainingForUser extends AppCompatActivity {
      * Insert user training record in to UserTrainingLog table.
      */
     private void addTrainingRecord(){
-        LocalDateTime trainingDate = LocalDateTime.parse(String.format("%sT00:00:00.000",binding.newTrainingDateInputEditText.getText().toString()));
+        LocalDateTime trainingDate;// = LocalDateTime.parse(String.format("%sT00:00:00.000",binding.newTrainingDateInputEditText.getText().toString()));
         double trainingDistance;
         int trainingTime;
-        boolean trainingCompetition = Boolean.parseBoolean(binding.newTrainingCompetitionCheckBox.getText().toString());
-
+        boolean trainingCompetition = binding.newTrainingCompetitionCheckBox.isChecked();
 
         try{
             trainingDate = LocalDateTime.parse(String.format("%sT00:00:00.000",binding.newTrainingDateInputEditText.getText().toString()));
         }catch(DateTimeException e){
-            Log.i(MainActivity.Tag,"Date must be enter as YYY-MM-DD");
+            //Log.i(MainActivity.Tag,String.format("Date must be enter as %s",binding.newTrainingDateInputEditText.getHint()));
+            showMessageDialog(String.format("Date must be enter as %s",binding.newTrainingDateInputEditText.getHint()));
             return;
         }
 
         try{
             trainingDistance = Double.parseDouble(binding.newTrainingDistanceInputEditText.getText().toString());
          }catch (NumberFormatException e){
-            Log.i(MainActivity.Tag,"Distance field is empty");
+            //Log.i(MainActivity.Tag,"Distance field is empty");
+            showMessageDialog("Distance field is empty");
             return;
         }
 
         try{
             trainingTime = Integer.parseInt(binding.newTrainingTimeInputEditText.getText().toString());
         }catch (Exception e){
-            Log.i(MainActivity.Tag,"Time field is empty");
+            //Log.i(MainActivity.Tag,"Time field is empty");
+            showMessageDialog("Time field is empty");
             return;
         }
 
         UserTrainingLog trainingLog = new UserTrainingLog(userId, trainingDate,trainingDistance,trainingTime,trainingCompetition);
         repository.insertUserTrainingLog(trainingLog);
 
+    }
+
+    /**
+     * Display message box to user when invalid entry is performed
+     * @param message to display to user
+     */
+    private void showMessageDialog(String message){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder( NewTrainingForUser.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage(message);
+
+        alertBuilder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        alertBuilder.create().show();
     }
 
     /**
