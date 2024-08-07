@@ -1,10 +1,13 @@
 package com.example.cst338_tracktournament.Database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Objects;
 
 @Entity(tableName = "trainingLogTable")
@@ -105,5 +108,16 @@ public class UserTrainingLog {
     @Override
     public int hashCode() {
         return Objects.hash(getTrainingId(), getUserId(), getDate(), getDistance(), getTime(), isCompetition());
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        String runType = isCompetition ? "Training" : "Competition";
+        return  date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + '\n' +
+                "distance: " + distance + '\n' +
+                "time: " + time + '\n' +
+                runType + '\n';
     }
 }

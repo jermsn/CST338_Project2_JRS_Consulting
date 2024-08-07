@@ -13,8 +13,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
 import com.example.cst338_tracktournament.Database.entities.Users;
+import com.example.cst338_tracktournament.Database.viewHolders.TrackTournamentAdapter;
+import com.example.cst338_tracktournament.Database.viewHolders.TrackTournamentViewModel;
 import com.example.cst338_tracktournament.databinding.ActivityUserTrainingBinding;
 
 import java.util.List;
@@ -23,6 +29,7 @@ public class UserTraining extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.cst338_tracktournament.MAIN_ACTIVITY_USER_ID";
     private ActivityUserTrainingBinding binding;
     private TrackTournamentRepository repository;
+    private TrackTournamentViewModel trackTournamentViewModel;
 
 
     @Override
@@ -31,11 +38,27 @@ public class UserTraining extends AppCompatActivity {
         binding = ActivityUserTrainingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        trackTournamentViewModel = new ViewModelProvider(this).get(TrackTournamentViewModel.class);
+
+        // This sets up our recycler
+        RecyclerView recyclerView = binding.logDisplayRecyclerView;
+        final TrackTournamentAdapter adapter = new TrackTournamentAdapter(new TrackTournamentAdapter.TrainingLogDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager((this)));
+
+
         repository = TrackTournamentRepository.getRepository(getApplication());
         displayUserNameInWindowTitle();
 
         // This changes the color and enables our admin/coach functions
         setCoachButton();
+
+        // Display historical training in the recycler window
+        // TODO: User ID is currently hardcoded. This needs to be derived from the logged in user ID
+        int loggedInUserId = 1;
+        trackTournamentViewModel.getAllLogsById(loggedInUserId).observe(this, trainingLogs -> {
+            adapter.submitList(trainingLogs);
+        });
 
         binding.userTrainingQuitButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -57,20 +57,17 @@
             android:layout_marginStart="12dp"
             android:enabled="false"/>
 
-    <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="325dp"
-            android:id="@+id/reviewTrainingsLabelTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:layout_margin="12dp"
-            android:background="@drawable/border"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coachTrainingButton"
-    />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/logDisplayRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="325dp"
+        android:layout_marginTop="12dp"
+        android:padding="2dp"
+        android:background="@drawable/border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coachTrainingButton"
+        tools:listitem="@layout/user_training_recycler_item" />
 
     <Button
             android:text="@string/user_training_quit"
@@ -81,7 +78,7 @@
             android:backgroundTint="@color/yellow"
             android:layout_margin="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewTrainingsLabelTextView"
+            app:layout_constraintTop_toBottomOf="@+id/logDisplayRecyclerView"
             android:layout_marginStart="12dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

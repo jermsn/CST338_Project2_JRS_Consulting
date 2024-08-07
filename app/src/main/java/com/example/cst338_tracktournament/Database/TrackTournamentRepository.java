@@ -113,4 +113,13 @@ public class TrackTournamentRepository {
         });
     }
 
+    /**
+     * Method to return logs for a single user ID
+     * @param loggedInUserId the a userId which you want to retrieve the logs for
+     * @return a LiveData list of GymLogs
+     */
+    public LiveData<List<UserTrainingLog>> getAllLogsByUserIdLiveData(int loggedInUserId) {
+        return userTrainingDAO.getRecordsByUserIdLiveData(loggedInUserId);
+    }
+
 }
