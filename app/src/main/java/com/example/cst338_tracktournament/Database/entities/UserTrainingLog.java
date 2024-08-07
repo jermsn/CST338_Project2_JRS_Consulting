@@ -9,6 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.Objects;
+/**
+ *  Defines the functionality to view a user's training log history
+ *  @author Steven Jackson
+ *  Date: 2024-07-25
+ */
 
 @Entity(tableName = "trainingLogTable")
 public class UserTrainingLog {

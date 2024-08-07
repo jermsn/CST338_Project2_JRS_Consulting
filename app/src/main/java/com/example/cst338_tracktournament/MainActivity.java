@@ -15,6 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityMainBinding;
+/**
+ *  Defines the functionality to authenticate to the system
+ *  @author Steven Jackson
+ *  Date: 2024-07-25
+ */
 
 public class MainActivity extends AppCompatActivity {
 

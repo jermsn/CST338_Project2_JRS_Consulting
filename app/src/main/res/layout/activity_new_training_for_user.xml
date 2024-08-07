@@ -120,12 +120,13 @@
     />
     <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="48dp"
             android:id="@+id/newTrainingCompetitionCheckBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/newTrainingTimeInputEditText"
             app:layout_constraintStart_toEndOf="@+id/competitionRunLabelTextView"
-            app:layout_constraintHorizontal_bias="0.142"/>
+            app:layout_constraintHorizontal_bias="0.142"
+            android:minWidth="48dp"/>
     <Button
             android:text="@string/log_it"
             android:textColor="@color/black"
