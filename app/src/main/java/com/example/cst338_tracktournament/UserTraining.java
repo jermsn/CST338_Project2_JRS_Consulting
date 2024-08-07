@@ -30,6 +30,7 @@ public class UserTraining extends AppCompatActivity {
     private ActivityUserTrainingBinding binding;
     private TrackTournamentRepository repository;
     private TrackTournamentViewModel trackTournamentViewModel;
+    private int userId;
 
 
     @Override
@@ -54,9 +55,8 @@ public class UserTraining extends AppCompatActivity {
         setCoachButton();
 
         // Display historical training in the recycler window
-        // TODO: User ID is currently hardcoded. This needs to be derived from the logged in user ID
-        int loggedInUserId = 1;
-        trackTournamentViewModel.getAllLogsById(loggedInUserId).observe(this, trainingLogs -> {
+
+        trackTournamentViewModel.getAllLogsById(userId).observe(this, trainingLogs -> {
             adapter.submitList(trainingLogs);
         });
 
@@ -67,7 +67,7 @@ public class UserTraining extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MainActivity.SHARED_PREFERENCE_USERID_KEY,
                         Context.MODE_PRIVATE);
                 // Launch the logon intent factory
-                int userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
+                userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
                 Intent intent = MainActivity.mainActivityFactory(getApplicationContext(),userId);
                 startActivity(intent);
             }
@@ -102,7 +102,7 @@ public class UserTraining extends AppCompatActivity {
                 Context.MODE_PRIVATE);
 
         // Launch the logon intent factory
-        int userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
+        userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
 
         LiveData<Users> userObserver = repository.getUserById(userId);
 
@@ -122,9 +122,6 @@ public class UserTraining extends AppCompatActivity {
     private void setCoachButton(){
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MainActivity.SHARED_PREFERENCE_USERID_KEY,
                 Context.MODE_PRIVATE);
-
-        // Launch the logon intent factory
-        int userId = sharedPreferences.getInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,0);
 
         LiveData<Users> userObserver = repository.getUserById(userId);
 

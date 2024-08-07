@@ -114,10 +114,25 @@ public class UserTrainingLog {
     @NonNull
     @Override
     public String toString() {
-        String runType = isCompetition ? "Training" : "Competition";
+        String runType = isCompetition ? "Competition" : "Training";
+        Integer pace = (int) (time/distance);
         return  date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)) + '\n' +
-                "distance: " + distance + '\n' +
-                "time: " + time + '\n' +
+                "Distance: " + distance + '\n' +
+                "Time: " + secondsToStringTime(time) + " Pace: " + secondsToStringTime(pace) + '\n' +
                 runType + '\n';
+    }
+
+
+    /**
+     * This method is used to display the number of seconds as a HH:MM:SS variable
+     * @param totalSecs an Integer representing the number of seconds
+     * @return a string showing the elapsed time in HH:MM:SS format
+     */
+    private String secondsToStringTime (Integer totalSecs) {
+        Integer hours = totalSecs / 3600;
+        Integer minutes = (totalSecs % 3600) / 60;
+        Integer seconds = totalSecs % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }
