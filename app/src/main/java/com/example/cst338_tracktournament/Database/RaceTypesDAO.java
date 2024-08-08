@@ -1,14 +1,11 @@
 package com.example.cst338_tracktournament.Database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
-import com.example.cst338_tracktournament.Database.entities.Users;
 
 import java.util.List;
 
@@ -52,15 +49,19 @@ public interface RaceTypesDAO {
 
     /**
      * This is a simple query to update the race name
+     *
+     * @return
      */
     @Query("UPDATE " + TrackTournamentDatabase.RACE_TYPE_TABLE + " SET raceName = :newName WHERE raceName == :oldName")
-    void updateRaceByName(String oldName, String newName);
+    Void updateRaceByName(String oldName, String newName);
 
     /**
      * This is a simple query to delete races by name
+     *
+     * @return
      */
     @Query("DELETE FROM " + TrackTournamentDatabase.RACE_TYPE_TABLE + " WHERE raceName == :name")
-    void deleteRaceByName(String name);
+    Void deleteRaceByName(String name);
 
 
     /**
