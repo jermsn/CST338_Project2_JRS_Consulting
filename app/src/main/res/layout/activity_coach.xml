@@ -23,8 +23,8 @@
     <Button
         android:id="@+id/buttonNewDistance"
         android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_margin="12dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
         android:backgroundTint="@color/green"
         android:text="@string/new_race_distance"
         android:textColor="@color/black"
@@ -34,12 +34,12 @@
         app:layout_constraintTop_toBottomOf="@id/coachScreenTextView" />
 
     <Button
-        android:id="@+id/buttonListPace"
+        android:id="@+id/buttonManageDistance"
         android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_margin="12dp"
-        android:backgroundTint="@color/yellow"
-        android:text="@string/list_runners_by_pace"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/manage_race_distances"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,10 +47,23 @@
         app:layout_constraintTop_toBottomOf="@id/buttonNewDistance" />
 
     <Button
+        android:id="@+id/buttonListPace"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:backgroundTint="@color/yellow"
+        android:text="@string/list_runners_by_pace"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonManageDistance" />
+
+    <Button
         android:id="@+id/buttonListTraining"
         android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_margin="12dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
         android:backgroundTint="@color/yellow"
         android:text="@string/list_runners_by_training"
         android:textColor="@color/black"
@@ -63,7 +76,7 @@
         android:id="@+id/teamRunTextView"
         android:layout_width="390dp"
         android:layout_height="250dp"
-        android:layout_marginTop="16dip"
+        android:layout_marginTop="9dip"
         android:padding="8dp"
         android:text="Runner display..."
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,10 +86,10 @@
     <Button
         android:id="@+id/buttonCoachQuit"
         android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_margin="12dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
         android:backgroundTint="@color/red"
-        android:text="@string/quit"
+        android:text="@string/coach_back"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
