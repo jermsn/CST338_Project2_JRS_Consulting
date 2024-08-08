@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Query;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
@@ -233,17 +232,49 @@ public class TrackTournamentRepository {
     }
 
     /**
-     * Retrieves a race from the table that matches the supplied name.
+     * Updates race details based on what the user supplied
      * @param oldName the race name to be replaced
      * @param newName the new race name to be assigned in its place
+     * @return
      */
-    public void updateRaceByName(String oldName, String newName) {}
+    public Void updateRaceByName(String oldName, String newName) {
+        Future<Void> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        return raceTypesDAO.updateRaceByName(oldName, newName);
+                    }
+                }
+        );
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.i(MainActivity.Tag, "Problem updating race type by name from the repository");
+        }
+        return null;
+    }
 
     /**
      * Deletes a race from the table that matches the supplied name.
+     *
      * @param name the race name to be deleted
      */
-    public void deleteRaceByName(String name) {}
+    public Void deleteRaceByName(String name) {
+        Future<Void> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                new Callable<Void>() {
+                    @Override
+                    public Void call() throws Exception {
+                        return raceTypesDAO.deleteRaceByName(name);
+                    }
+                }
+        );
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.i(MainActivity.Tag, "Problem deleting a race from the repository");
+        }
+        return null;
+    }
 
 
 }
