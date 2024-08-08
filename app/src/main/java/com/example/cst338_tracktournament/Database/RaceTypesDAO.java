@@ -1,11 +1,14 @@
 package com.example.cst338_tracktournament.Database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
+import com.example.cst338_tracktournament.Database.entities.Users;
 
 import java.util.List;
 
@@ -39,6 +42,26 @@ public interface RaceTypesDAO {
      */
     @Query("Select * from " + TrackTournamentDatabase.RACE_TYPE_TABLE)
     List<RaceTypes> getRaceTypes();
+
+    /**
+     * This is a simple query to records matching single race name
+     * @return a list of RaceTypes
+     */
+    @Query("Select * from " + TrackTournamentDatabase.RACE_TYPE_TABLE + " WHERE raceName == :name")
+    RaceTypes getRaceByName(String name);
+
+    /**
+     * This is a simple query to update the race name
+     */
+    @Query("UPDATE " + TrackTournamentDatabase.RACE_TYPE_TABLE + " SET raceName = :newName WHERE raceName == :oldName")
+    void updateRaceByName(String oldName, String newName);
+
+    /**
+     * This is a simple query to delete races by name
+     */
+    @Query("DELETE FROM " + TrackTournamentDatabase.RACE_TYPE_TABLE + " WHERE raceName == :name")
+    void deleteRaceByName(String name);
+
 
     /**
      * We're going to define an inner class as a container for our race results.

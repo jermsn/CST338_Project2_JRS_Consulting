@@ -41,7 +41,7 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     //Check DB Instances
-    static TrackTournamentDatabase getDatabase(final Context context){
+    public static TrackTournamentDatabase getDatabase(final Context context){
         Log.i(MainActivity.Tag, "getDatabase has been called.");
         // The command below can be uncommented and run to fully rebuild the database, including default values
         //context.deleteDatabase(DATABASE_NAME);
