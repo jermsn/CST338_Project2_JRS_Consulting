@@ -41,6 +41,30 @@ public interface RaceTypesDAO {
     List<RaceTypes> getRaceTypes();
 
     /**
+     * This is a simple query to records matching single race name
+     * @return a list of RaceTypes
+     */
+    @Query("Select * from " + TrackTournamentDatabase.RACE_TYPE_TABLE + " WHERE raceName == :name")
+    RaceTypes getRaceByName(String name);
+
+    /**
+     * This is a simple query to update the race name
+     *
+     * @return
+     */
+    @Query("UPDATE " + TrackTournamentDatabase.RACE_TYPE_TABLE + " SET raceName = :newName WHERE raceName == :oldName")
+    Void updateRaceByName(String oldName, String newName);
+
+    /**
+     * This is a simple query to delete races by name
+     *
+     * @return
+     */
+    @Query("DELETE FROM " + TrackTournamentDatabase.RACE_TYPE_TABLE + " WHERE raceName == :name")
+    Void deleteRaceByName(String name);
+
+
+    /**
      * We're going to define an inner class as a container for our race results.
      */
     class paceResults {
