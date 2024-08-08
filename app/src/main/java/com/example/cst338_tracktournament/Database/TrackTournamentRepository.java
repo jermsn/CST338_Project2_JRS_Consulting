@@ -216,7 +216,20 @@ public class TrackTournamentRepository {
      * @return a RaceType
      */
     public RaceTypes getRaceByName(String name) {
-        return raceTypesDAO.getRaceByName(name);
+        Future<RaceTypes> future = TrackTournamentDatabase.databaseWriteExecutor.submit(
+                new Callable<RaceTypes>() {
+                    @Override
+                    public RaceTypes call() throws Exception {
+                        return (RaceTypes) raceTypesDAO.getRaceByName(name);
+                    }
+                }
+        );
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.i(MainActivity.Tag, "Problem pulling race type by name from the repository");
+        }
+        return null;
     }
 
     /**

@@ -3,11 +3,15 @@ package com.example.cst338_tracktournament;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cst338_tracktournament.Database.RaceTypesDAO;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
+import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.databinding.ActivityManageDistancesBinding;
 
 public class ManageDistances extends AppCompatActivity {
@@ -27,8 +31,40 @@ public class ManageDistances extends AppCompatActivity {
         // function to retrieve it without interrupting the main thread
         repository = TrackTournamentRepository.getRepository(getApplication());
 
-
         // Set actions to update the table and move from the edit distance button back to the coach activity
+        binding.buttonGetRaceDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Take the supplied information and create a temporary race object
+                String raceRetrieve = binding.editRaceNameEditText.getText().toString();
+                Log.i(MainActivity.Tag, "Coach wants a " + raceRetrieve + " race.");
+
+                // If we didn't find a race, let the user know
+                if(raceRetrieve.isEmpty()) {
+                    Toast.makeText(ManageDistances.this, "Please enter a race name to proceed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Pull back our race details
+                RaceTypes tempRace = repository.getRaceByName(raceRetrieve);
+
+                // If we didn't find a race, let the user know
+                if(tempRace == null) {
+                    Toast.makeText(ManageDistances.this, "No race found for that name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Otherwise, use this to update the display
+                String tempMin = Double.toString(tempRace.getMinimumDistance());
+                String tempMax = Double.toString(tempRace.getMaximumDistance());
+                binding.raceNameEchoEditText.setText(tempRace.getRaceName());
+                binding.minDistanceEchoEditText.setText(tempMin);
+                binding.maxDistanceEchoEditText.setText(tempMax);
+            }
+        });
+
+
+        // Set actions to delete the race and move from the edit distance button back to the coach activity
         binding.updateDistance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +93,6 @@ public class ManageDistances extends AppCompatActivity {
      * @return the intent of the main application
      */
     static Intent manageDistancesActivityIntentFactory (Context context) {
-        return new Intent(context, Coach_Activity.class);
+        return new Intent(context, ManageDistances.class);
     }
 }

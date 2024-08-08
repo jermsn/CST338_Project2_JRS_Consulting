@@ -77,7 +77,7 @@
 
     <EditText
         android:id="@+id/raceNameEchoEditText"
-        android:layout_width="260dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -87,7 +87,6 @@
         android:inputType="textAutoComplete"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="+id/raceNameEchoTextView"
         app:layout_constraintTop_toBottomOf="@+id/buttonGetRaceDetails" />
 
     <TextView
@@ -113,10 +112,9 @@
         android:autofillHints="Enter User Name"
         android:gravity="center"
         android:hint="@string/new_distance"
-        android:inputType="textAutoComplete"
+        android:inputType="number|numberDecimal"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="+id/minDistanceEchoTextView"
         app:layout_constraintTop_toBottomOf="@+id/raceNameEchoEditText" />
 
     <TextView
@@ -142,10 +140,9 @@
         android:autofillHints="Enter User Name"
         android:gravity="center"
         android:hint="@string/new_distance"
-        android:inputType="textAutoComplete"
+        android:inputType="number|numberDecimal"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="+id/maxDistanceEchoTextView"
         app:layout_constraintTop_toBottomOf="@+id/minDistanceEchoEditText" />
 
     <TextView
@@ -182,7 +179,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="170dp"
         android:gravity="center"
-        android:text="<< or >>"
+        android:text="or"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updateDistance" />
