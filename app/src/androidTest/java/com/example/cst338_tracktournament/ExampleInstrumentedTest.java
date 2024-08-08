@@ -51,6 +51,7 @@ public class ExampleInstrumentedTest {
     RaceTypes race2;
     RaceTypes race3;
     int userId;
+    int time;
 
 
     /* These setup the testing environment */
@@ -60,6 +61,7 @@ public class ExampleInstrumentedTest {
         raceTypesDAO = db.raceTypesDAO();
         userTrainingDAO = db.trainingLogDAO();
         userId = 5;
+        time = 121;
     }
 
     /* Tear down the testing environment */
@@ -74,6 +76,7 @@ public class ExampleInstrumentedTest {
         userTrainingLog2 = null;
         userTrainingLog3 = null;
         userId = 0;
+        time = 0;
     }
 
     //////////////////////////////////////////
@@ -89,6 +92,28 @@ public class ExampleInstrumentedTest {
         assertEquals("Beer Mile", race1.getRaceName());
         assertEquals(0.9, race1.getMinimumDistance(),0);
         assertEquals(1.1, race1.getMaximumDistance(), 0);
+    }
+
+    /**
+     * This tests the basic constructor, getter and setter methods for UserTrainingLog objects
+     */
+    @Test
+    public void userTrainingLogTest() {
+        userTrainingLog1 = new UserTrainingLog(8, yesterday, 2.2, 299, false);
+        assertEquals(8, userTrainingLog1.getUserId());
+        assertEquals(yesterday, userTrainingLog1.getDate());
+        assertEquals(2.2, userTrainingLog1.getDistance(), 0);
+        assertEquals(299, userTrainingLog1.getTime(),0);
+        assertFalse(userTrainingLog1.isCompetition());
+    }
+
+    /**
+     * This tests the basic constructor, getter and setter methods for UserTrainingLog objects
+     */
+    @Test
+    public void integerToTimeTest() {
+        String timeString = UserTrainingLog.secondsToStringTime(time);
+        assertEquals("00:02:01", timeString);
     }
 
     //////////////////////////////////////////
