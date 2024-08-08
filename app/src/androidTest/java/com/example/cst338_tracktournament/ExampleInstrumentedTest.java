@@ -36,6 +36,7 @@ public class ExampleInstrumentedTest {
     private RaceTypesDAO raceTypesDAO;
     private UserTrainingDAO userTrainingDAO;
     LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+    LocalDateTime yesterday = today.minusDays(1).truncatedTo(ChronoUnit.DAYS);
     UserTrainingLog userTrainingLog1;
     UserTrainingLog userTrainingLog2;
     UserTrainingLog userTrainingLog3;
@@ -62,8 +63,9 @@ public class ExampleInstrumentedTest {
     //////////////////////////////////////////
     //    UserTrainingLog table tests
     //////////////////////////////////////////
+
     /**
-     * Insert test and SelectByName test
+     * Insert test and getMatchingTrainingLog test
      * We insert a sample trainingLog, then return a trainingLog with those same properties from the database
      * These are compared to ensure the user, date, distance, time and competition status are not
      * distorted during the insert and selection process
@@ -81,6 +83,45 @@ public class ExampleInstrumentedTest {
         assertEquals(userTrainingLog1.getDistance(), userTrainingLog2.getDistance(), 0);
         assertEquals(userTrainingLog1.getTime(), userTrainingLog2.getTime());
         assertEquals(userTrainingLog1.isCompetition(), userTrainingLog2.isCompetition());
+    }
+
+    /**
+     * Update test and getMatchingTrainingLog test
+     * Requires functional insert test above.
+     */
+    @Test
+    public void updateMatchingTrainingLog() {
+        // First we insert a new log
+        userTrainingLog1 = new UserTrainingLog(1, today, 5.0, 500, true);
+        userTrainingDAO.insert(userTrainingLog1);
+        // Then we update the log fields
+        userTrainingDAO.updateMatchingTrainingLog(1, today, 5.0, 500, true, yesterday, 3.1, 600, false);
+        // Last, we verify we can retrieve with these new properties and and verify that all fields are as expected
+        userTrainingLog2 = userTrainingDAO.getMatchingTrainingLog(1, yesterday, 3.1, 600, false);
+        assertEquals(userTrainingLog2.getDate(), yesterday);
+        assertEquals(userTrainingLog2.getDistance(), 3.1, 0);
+        assertEquals(userTrainingLog2.getTime(), 600, 0);
+        assertFalse(userTrainingLog2.isCompetition());
+    }
+
+    /**
+     * Insert test and getMatchingTrainingLog test
+     * We insert a sample trainingLog, then return a trainingLog with those same properties from the database
+     * These are compared to ensure the user, date, distance, time and competition status are not
+     * distorted during the insert and selection process
+     */
+    @Test
+    public void userTrainingLogDeleteTest() {
+        // First we insert a new log
+        userTrainingLog1 = new UserTrainingLog(9, today, 2.0, 200, true);
+        userTrainingDAO.insert(userTrainingLog1);
+        // Now, we verify that it has been properly inserted (same as insert test above)
+        userTrainingLog2 = userTrainingDAO.getMatchingTrainingLog(9, today, 2.0, 200, true);
+        //assertEquals(userTrainingLog1.getTime(), userTrainingLog2.getTime());
+        // Now we delete it, and verify that we get a null value trying to retrieve the deleted record
+        userTrainingDAO.deleteMatchingTrainingLog(9, today, 2.0, 200, true);
+        userTrainingLog3 = userTrainingDAO.getMatchingTrainingLog(9, today, 2.0, 200, true);
+        assertNull(userTrainingLog3);
     }
 
     //////////////////////////////////////////

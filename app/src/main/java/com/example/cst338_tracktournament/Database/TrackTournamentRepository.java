@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
+
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.Database.entities.Users;
@@ -134,6 +136,33 @@ public class TrackTournamentRepository {
     public UserTrainingLog getMatchingTrainingLog(int userId, LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition) {
         return userTrainingDAO.getMatchingTrainingLog(userId, trainingDate, distance, time, isCompetition);
     }
+
+    /**
+     * Method to update an existing training log for a user
+     * @param userId the user for the matching run
+     * @param trainingDate the date of the training run
+     * @param distance the distance in miles of the training run
+     * @param time the time (in seconds) of the training run
+     * @param isCompetition an indicator if the run was training or competition
+     * @param newTrainingDate the date you wish to update the run to
+     * @param newDistance the distance you wish to update to
+     * @param newTime the time you wish to update to
+     * @param newCompetition the new competition indicator you wish to update to
+     */
+    public void updateMatchingTrainingLog(int userId,
+                                   LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition,
+                                   LocalDateTime newTrainingDate, double newDistance, Integer newTime, boolean newCompetition) {}
+
+    /**
+     * This deletes a matching training log
+     * @param userId the user for the matching run
+     * @param trainingDate the date of the training run
+     * @param distance the distance in miles of the training run
+     * @param time the time (in seconds) of the training run
+     * @param isCompetition an indicator if the run was training or competition
+     */
+    public void deleteMatchingTrainingLog(int userId, LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition) {}
+
 
     /**
      * This uses a Future to and returns a list of race types and racers sorted by pace
