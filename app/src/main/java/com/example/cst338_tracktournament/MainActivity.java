@@ -1,6 +1,8 @@
 package com.example.cst338_tracktournament;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.LinearGradient;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertTrackLogRecord(){
-        Users log = new Users(mUserName,mPassword, "Runner");
+        Users log = new Users(mUserName,mPassword, "User");
         repository.insertTrackTournamentLog(log);
     }
 
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     private void verifyUser(){
         String username = binding.userNameInputEditText.getText().toString();
         if(username.isEmpty()){
-            toastMaker("Username may not be blank");
+            showMessageDialog("Username may not be blank");
             return;
         }
         LiveData<Users> userObserver = repository.getUserByUserName(username);
@@ -103,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     sharedPrefEditor.putInt(MainActivity.SHARED_PREFERENCE_USERID_KEY,user.getUserId());
                     sharedPrefEditor.apply();
                     startActivity(UserTraining.userTrainingActivityIntentFactory(getApplicationContext()));
-                    toastMaker(String.format("Valid password for user id: %s", user.getUserId()));
+                    //showMessageDialog(String.format("Valid password for user id: %s", user.getUserId()));
                     binding.passwordInputEditText.setSelection(0);
                 }else{
-                    toastMaker("Invalid credentials");
+                    showMessageDialog("Invalid credentials");
                 }
             }else {
-                toastMaker(String.format("%s is not a valid username.", username));
+                showMessageDialog(String.format("%s is not a valid username.", username));
                 binding.userNameInputEditText.setSelection(0);
             }
         });
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
      * @param context the state of the active application
      * @return the intent of the main application
      */
-    static Intent mainActivityFactory (Context context, int userId) {
+    public static Intent mainActivityFactory (Context context, int userId) {
         // return new Intent(context, MainActivity.class);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
@@ -130,5 +132,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void toastMaker(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Display message box to user when invalid entry is performed
+     * @param message to display to user
+     */
+    private void showMessageDialog(String message){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder( MainActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage(message);
+
+        alertBuilder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        alertBuilder.create().show();
     }
 }
