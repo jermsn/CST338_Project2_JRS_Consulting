@@ -15,11 +15,15 @@ import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.Database.typeConverters.LocalDateTimeConverter;
 import com.example.cst338_tracktournament.MainActivity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ *  This defines the Data Access Object (DAO) for Track Tournament.
+ *  @author Steven Jackson
+ *  Date: 2024-07-31
+ */
 @TypeConverters(LocalDateTimeConverter.class)
 @Database(entities = {Users.class, RaceTypes.class, UserTrainingLog.class}, version = 5, exportSchema = false)
 public abstract class TrackTournamentDatabase extends RoomDatabase {
@@ -37,7 +41,7 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     //Check DB Instances
-    static TrackTournamentDatabase getDatabase(final Context context){
+    public static TrackTournamentDatabase getDatabase(final Context context){
         Log.i(MainActivity.Tag, "getDatabase has been called.");
         // The command below can be uncommented and run to fully rebuild the database, including default values
         //context.deleteDatabase(DATABASE_NAME);
@@ -168,4 +172,5 @@ public abstract class TrackTournamentDatabase extends RoomDatabase {
 
     // Define an abstract method to tie our Race Types DAO to the database
     public abstract RaceTypesDAO raceTypesDAO();
+
 }

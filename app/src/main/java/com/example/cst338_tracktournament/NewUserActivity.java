@@ -14,15 +14,21 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
 import com.example.cst338_tracktournament.Database.TrackTournamentRepository;
-import com.example.cst338_tracktournament.Database.entities.TrackTournamentLog;
+import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.databinding.ActivityNewUserBinding;
 
 import java.util.ArrayList;
 
+/**
+ *  Defines the functionality to add a user to the application
+ *  @author Steven Jackson
+ *  Date: 2024-08-01
+ */
+
 public class NewUserActivity extends AppCompatActivity {
     private ActivityNewUserBinding binding;
     private TrackTournamentRepository repository;
-    private ArrayList<TrackTournamentLog> userList;
+    private ArrayList<Users> userList;
 
 
     @Override
@@ -38,8 +44,13 @@ public class NewUserActivity extends AppCompatActivity {
         binding.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Invalid entry detected
-                if(isValidUserName() || !passwordsMatch()){
+                //Invalid user name entry detected
+                if(!isValidUserName()){
+                    return;
+                }
+
+                //Invalid password entry detected
+                if(!passwordsMatch()){
                     return;
                 }
                 //Add user to the database;
@@ -70,20 +81,20 @@ public class NewUserActivity extends AppCompatActivity {
          String newUserName = binding.newUserNameInputEditText.getText().toString();
          //User has not entered a username
          if(newUserName.isEmpty()){
-             showMessageDialog("Enter a user name.");
+             showMessageDialog("User name is missing.");
              //toastMaker(String.format("User %s already exists.", newUserName));
              return false;
          }
 
-         for(TrackTournamentLog log : userList)
+         for(Users log : userList)
          {
              if(log.getName().equals(newUserName)) {
                  showMessageDialog(String.format("User %s already exists.", newUserName));
-                 return true;
+                 return false;
              }
 
          }
-         return false;
+         return true;
 
     }
 
@@ -94,6 +105,11 @@ public class NewUserActivity extends AppCompatActivity {
     private boolean passwordsMatch(){
         String newPassword = binding.newPasswordInputEditText.getText().toString();
         String verifyPassword = binding .verifyPasswordInputEditText.getText().toString();
+
+        if(newPassword.isEmpty()){
+            showMessageDialog("Password is missing.");
+            return false;
+        }
 
         if(!newPassword.equals(verifyPassword)){
             showMessageDialog("Passwords do not match!");
@@ -108,7 +124,7 @@ public class NewUserActivity extends AppCompatActivity {
         String newUserName = binding.newUserNameInputEditText.getText().toString();
         String newPassword = binding.newPasswordInputEditText.getText().toString();
 
-        TrackTournamentLog log = new TrackTournamentLog(newUserName,newPassword, "runner");
+        Users log = new Users(newUserName,newPassword, "User");
         repository.insertTrackTournamentLog(log);
         //Go to login screen for user to proceed.
         binding.cancelNewUserButton.callOnClick();
