@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageDistances">
+
+    <TextView
+        android:id="@+id/manageDistanceTextView"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/manage_race_names_and_distances"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/editRaceNameTextView"
+        android:layout_width="250dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="170dp"
+        android:text="@string/name_of_the_race_to_edit"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manageDistanceTextView" />
+
+    <EditText
+        android:id="@+id/editRaceNameEditText"
+        android:layout_width="350dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="5dp"
+        android:autofillHints="Enter User Name"
+        android:gravity="center"
+        android:hint="@string/enter_race_name"
+        android:inputType="textAutoComplete"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editRaceNameTextView" />
+
+    <Button
+        android:id="@+id/buttonGetRaceDetails"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:backgroundTint="@color/yellow"
+        android:text="@string/display_race_details"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editRaceNameEditText" />
+
+    <TextView
+        android:id="@+id/raceNameEchoTextView"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="170dp"
+        android:gravity="center_vertical"
+        android:text="@string/distance_name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGetRaceDetails" />
+
+    <EditText
+        android:id="@+id/raceNameEchoEditText"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:autofillHints="Enter User Name"
+        android:gravity="center"
+        android:hint="@string/enter_updated_race_name"
+        android:inputType="textAutoComplete"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGetRaceDetails" />
+
+    <TextView
+        android:id="@+id/minDistanceEchoTextView"
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="170dp"
+        android:gravity="center_vertical"
+        android:text="@string/minimum_distance"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/raceNameEchoEditText" />
+
+    <EditText
+        android:id="@+id/minDistanceEchoEditText"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:autofillHints="Enter User Name"
+        android:gravity="center"
+        android:hint="@string/new_distance"
+        android:inputType="number|numberDecimal"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/raceNameEchoEditText" />
+
+    <TextView
+        android:id="@+id/maxDistanceEchoTextView"
+        android:layout_width="175dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="170dp"
+        android:gravity="center_vertical"
+        android:text="@string/maximum_distance"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minDistanceEchoEditText" />
+
+    <EditText
+        android:id="@+id/maxDistanceEchoEditText"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:autofillHints="Enter User Name"
+        android:gravity="center"
+        android:hint="@string/new_distance"
+        android:inputType="number|numberDecimal"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minDistanceEchoEditText" />
+
+    <TextView
+        android:id="@+id/updatePromptTextView"
+        android:layout_width="380dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="170dp"
+        android:gravity="center"
+        android:text="@string/update_any_desired_values_above_and_click_below_to_save"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/maxDistanceEchoEditText" />
+
+    <Button
+        android:id="@+id/updateDistance"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/update_race"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/updatePromptTextView" />
+
+    <TextView
+        android:id="@+id/deletePromptTextView"
+        android:layout_width="380dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="170dp"
+        android:gravity="center"
+        android:text="or"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateDistance" />
+
+    <Button
+        android:id="@+id/deleteDistance"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/delete_race"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deletePromptTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

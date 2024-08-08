@@ -42,6 +42,16 @@ public class Coach_Activity extends AppCompatActivity {
             }
         });
 
+        // Set an action to move from the new distance button to the new distance activity
+        binding.buttonManageDistance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch the relevant intent factory
+                Intent intent = ManageDistances.manageDistancesActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+
         // Display our runners sorted by best pace for each race type
         binding.buttonListPace.setOnClickListener(new View.OnClickListener() {
             @Override
