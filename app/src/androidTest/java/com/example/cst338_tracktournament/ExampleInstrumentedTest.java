@@ -1,6 +1,10 @@
 package com.example.cst338_tracktournament;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -10,6 +14,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.cst338_tracktournament.MainActivity;
 import com.example.cst338_tracktournament.Database.RaceTypesDAO;
 import com.example.cst338_tracktournament.Database.TrackTournamentDatabase;
 import com.example.cst338_tracktournament.Database.UserTrainingDAO;
@@ -35,6 +40,8 @@ public class ExampleInstrumentedTest {
     Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
     private RaceTypesDAO raceTypesDAO;
     private UserTrainingDAO userTrainingDAO;
+    Intent testIntent;
+    Bundle testBundle;
     LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
     LocalDateTime yesterday = today.minusDays(1).truncatedTo(ChronoUnit.DAYS);
     UserTrainingLog userTrainingLog1;
@@ -43,6 +50,7 @@ public class ExampleInstrumentedTest {
     RaceTypes race1;
     RaceTypes race2;
     RaceTypes race3;
+    int userId;
 
 
     /* These setup the testing environment */
@@ -51,13 +59,108 @@ public class ExampleInstrumentedTest {
         TrackTournamentDatabase db = TrackTournamentDatabase.getDatabase(appContext);
         raceTypesDAO = db.raceTypesDAO();
         userTrainingDAO = db.trainingLogDAO();
+        userId = 5;
     }
 
     /* Tear down the testing environment */
     @After
     public void tearDown() {
+        testIntent = null;
+        testBundle = null;
         race1 = null;
         race2 = null;
+        race3 = null;
+        userTrainingLog1 = null;
+        userTrainingLog2 = null;
+        userTrainingLog3 = null;
+        userId = 0;
+    }
+
+    //////////////////////////////////////////
+    //    Simple Unit Tests
+    //////////////////////////////////////////
+
+    /**
+     * This tests the basic constructor, getter and setter methods for raceTypes objects
+     */
+    @Test
+    public void raceTypesTest() {
+        race1 = new RaceTypes("Beer Mile", 0.9, 1.1);
+        assertEquals("Beer Mile", race1.getRaceName());
+        assertEquals(0.9, race1.getMinimumDistance(),0);
+        assertEquals(1.1, race1.getMaximumDistance(), 0);
+    }
+
+    //////////////////////////////////////////
+    //    Intent Factory Tests
+    //////////////////////////////////////////
+
+    /**
+     * This tests that the MainActivity intent is assigned and the extra (userID) in the main activity
+     */
+    @Test
+    public void mainActivityIntentTest() {
+        // assign our intent and pull the extras into a bundle
+        testIntent = MainActivity.mainActivityFactory(getApplicationContext(), userId);
+        testBundle = testIntent.getExtras();
+        // test that these have returned properly
+        assertNotNull(testIntent);
+        assertNotNull(testBundle);
+    }
+
+    /**
+     * This tests that the Coach_Activity intent is assigned
+     */
+    @Test
+    public void coachActivityIntentTest() {
+        // assign our intent
+        testIntent = Coach_Activity.coachActivityIntentFactory(getApplicationContext());
+        // test that these have returned properly
+        assertNotNull(testIntent);
+    }
+
+    /**
+     * This tests that the NewDistanceActivity intent is assigned
+     */
+    @Test
+    public void newDistanceActivityIntentTest() {
+        // assign our intent
+        testIntent = NewDistanceActivity.newDistanceIntentFactory(getApplicationContext());
+        // test that these have returned properly
+        assertNotNull(testIntent);
+    }
+
+    /**
+     * This tests that the NewTrainingForUser intent is assigned
+     */
+    @Test
+    public void newTrainingForUserActivityIntentTest() {
+        // assign our intent
+        testIntent = NewTrainingForUser.newTrainingForUserActivityIntentFactory(getApplicationContext());
+        // test that these have returned properly
+        assertNotNull(testIntent);
+    }
+
+    /**
+     * This tests that the NewUserActivity intent is assigned
+     */
+    @Test
+    public void newUserActivityIntentTest() {
+        // assign our intent
+        testIntent = NewUserActivity.newUserActivityFactory(getApplicationContext());
+        // test that these have returned properly
+        assertNotNull(testIntent);
+    }
+
+    /**
+     * This tests that the UserTrainingActivity intent is assigned
+     */
+    @Test
+    public void userTrainingIntentTest() {
+        // assign our intent
+        testIntent = UserTraining.userTrainingActivityIntentFactory(getApplicationContext());
+        // test that these have returned properly
+        assertNotNull(testIntent);
     }
 
     //////////////////////////////////////////
