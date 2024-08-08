@@ -30,7 +30,7 @@
     <string name="new_training_for_user"><![CDATA[New Training for\n<User>]]></string>
     <string name="enter_training_below">Enter training below</string>
     <string name="newTrainingDate">Date:</string>
-    <string name="enter_training_date">Enter Date: yyy-mm-dd</string>
+    <string name="enter_training_date">Enter Date: yyyy-mm-dd</string>
     <string name="enter_new_training_distance">Distance:</string>
     <string name="enter_distance">Enter Distance</string>
     <string name="enter_new_training_time">Time:</string>
@@ -47,4 +47,15 @@
     <string name="new_training_enter_time">Enter Time</string>
     <string name="no_logs">Runners have not logged any training!</string>
     <string name="coach_back">Return to Training</string>
+    <string name="manage_race_distances">Manage Races</string>
+    <string name="manage_race_names_and_distances">Manage Races</string>
+    <string name="name_of_the_race_to_edit">Name of the Race to Edit</string>
+    <string name="enter_race_name">Enter Race Name</string>
+    <string name="display_race_details">Display Race Details</string>
+    <string name="race_name">Race Name</string>
+    <string name="enter_updated_race_name">Enter Updated Race Name</string>
+    <string name="new_distance">New Distance</string>
+    <string name="update_any_desired_values_above_and_click_below_to_save">Update the race name above and click to save</string>
+    <string name="update_race">Update Race Name</string>
+    <string name="delete_race">Delete Race</string>
 </resources>
