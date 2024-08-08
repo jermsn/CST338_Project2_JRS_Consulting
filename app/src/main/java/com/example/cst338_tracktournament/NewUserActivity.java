@@ -124,7 +124,7 @@ public class NewUserActivity extends AppCompatActivity {
         String newUserName = binding.newUserNameInputEditText.getText().toString();
         String newPassword = binding.newPasswordInputEditText.getText().toString();
 
-        Users log = new Users(newUserName,newPassword, "runner");
+        Users log = new Users(newUserName,newPassword, "User");
         repository.insertTrackTournamentLog(log);
         //Go to login screen for user to proceed.
         binding.cancelNewUserButton.callOnClick();
