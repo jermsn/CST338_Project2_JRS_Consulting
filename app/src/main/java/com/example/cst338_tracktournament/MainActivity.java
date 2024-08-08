@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
      * @param context the state of the active application
      * @return the intent of the main application
      */
-    static Intent mainActivityFactory (Context context, int userId) {
+    public static Intent mainActivityFactory (Context context, int userId) {
         // return new Intent(context, MainActivity.class);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);

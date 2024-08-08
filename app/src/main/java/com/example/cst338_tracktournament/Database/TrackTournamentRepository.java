@@ -4,11 +4,14 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
+
 import com.example.cst338_tracktournament.Database.entities.RaceTypes;
 import com.example.cst338_tracktournament.Database.entities.UserTrainingLog;
 import com.example.cst338_tracktournament.Database.entities.Users;
 import com.example.cst338_tracktournament.MainActivity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -122,6 +125,46 @@ public class TrackTournamentRepository {
     }
 
     /**
+     * Method to a race matching the supplied parameters
+     * @param userId the user for the matching run
+     * @param trainingDate the date of the training run
+     * @param distance the distance in miles of the training run
+     * @param time the time (in seconds) of the training run
+     * @param isCompetition an indicator if the run was training or competition
+     * @return the logged runs for that user
+     */
+    public UserTrainingLog getMatchingTrainingLog(int userId, LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition) {
+        return userTrainingDAO.getMatchingTrainingLog(userId, trainingDate, distance, time, isCompetition);
+    }
+
+    /**
+     * Method to update an existing training log for a user
+     * @param userId the user for the matching run
+     * @param trainingDate the date of the training run
+     * @param distance the distance in miles of the training run
+     * @param time the time (in seconds) of the training run
+     * @param isCompetition an indicator if the run was training or competition
+     * @param newTrainingDate the date you wish to update the run to
+     * @param newDistance the distance you wish to update to
+     * @param newTime the time you wish to update to
+     * @param newCompetition the new competition indicator you wish to update to
+     */
+    public void updateMatchingTrainingLog(int userId,
+                                   LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition,
+                                   LocalDateTime newTrainingDate, double newDistance, Integer newTime, boolean newCompetition) {}
+
+    /**
+     * This deletes a matching training log
+     * @param userId the user for the matching run
+     * @param trainingDate the date of the training run
+     * @param distance the distance in miles of the training run
+     * @param time the time (in seconds) of the training run
+     * @param isCompetition an indicator if the run was training or competition
+     */
+    public void deleteMatchingTrainingLog(int userId, LocalDateTime trainingDate, double distance, Integer time, boolean isCompetition) {}
+
+
+    /**
      * This uses a Future to and returns a list of race types and racers sorted by pace
      * @return ArrayList of type RaceTypesDAO.paceResults
      */
@@ -166,5 +209,28 @@ public class TrackTournamentRepository {
         }
         return null;
     }
+
+    /**
+     * Retrieves a race from the table that matches the supplied name.
+     * @param name race name
+     * @return a RaceType
+     */
+    public RaceTypes getRaceByName(String name) {
+        return raceTypesDAO.getRaceByName(name);
+    }
+
+    /**
+     * Retrieves a race from the table that matches the supplied name.
+     * @param oldName the race name to be replaced
+     * @param newName the new race name to be assigned in its place
+     */
+    public void updateRaceByName(String oldName, String newName) {}
+
+    /**
+     * Deletes a race from the table that matches the supplied name.
+     * @param name the race name to be deleted
+     */
+    public void deleteRaceByName(String name) {}
+
 
 }
